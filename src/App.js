@@ -1,20 +1,9 @@
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
-import Categories from "./Components/Categories/Categories";
-import Footer from "./Components/Footer/Footer";
-import Map from "./Components/Map/Map";
-import Nav from "./Components/Nav/Nav";
-import Slider from "./Components/Slider/Slider";
+import { routes } from "./Routes/Routes";
 
 function App() {
-  return (
-    <>
-      <Nav />
-      <Slider />
-      <Categories />
-      <Map />
-      <Footer />
-    </>
-  );
+  return <RouterProvider router={routes}></RouterProvider>;
 }
 
 export default App;

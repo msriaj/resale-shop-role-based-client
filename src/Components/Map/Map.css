@@ -1,0 +1,7 @@
+.region {
+  fill: rgb(30, 109, 30);
+}
+.region:hover {
+  fill: red;
+  cursor: pointer;
+}

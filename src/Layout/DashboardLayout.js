@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { FaBars, FaMobile, FaSignOutAlt } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 import { Sidebar } from "./Sidebar";
 
 const DashboardLayout = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-
+  const { role } = useAuth();
+  console.log(role);
   return (
     <div>
       <div>

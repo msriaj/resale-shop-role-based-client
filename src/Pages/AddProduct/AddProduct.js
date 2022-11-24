@@ -1,11 +1,12 @@
 import React from "react";
 import Input from "../../Components/Input/Input";
+import { districts } from "./district";
 
 const AddProduct = () => {
   return (
     <div>
       <div className="mt-5 md:col-span-2 md:mt-0">
-        <form className="md:w-7/12">
+        <form className="">
           <div className="shadow sm:overflow-hidden sm:rounded-md">
             <div className=" bg-white px-4 py-5 sm:p-6">
               <div className="">
@@ -39,12 +40,20 @@ const AddProduct = () => {
                     </label>
                     <div className="mt-1 flex rounded-md shadow-sm">
                       <div className="flex justify-center">
-                        <div class="">
-                          <select className="block w-full  border p-2  rounded">
-                            <option selected>Select Your Location</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <div className="flex grow">
+                          <select className="  border p-2  rounded">
+                            <option className="w-full " selected>
+                              Select Your Location
+                            </option>
+                            {districts.map((district) => (
+                              <option
+                                key={district.id}
+                                className="w-full"
+                                value={district.name}
+                              >
+                                {district.name}
+                              </option>
+                            ))}
                           </select>
                         </div>
                       </div>
@@ -68,7 +77,7 @@ const AddProduct = () => {
                 <div className="mt-5">
                   <p>Please select your Product Quality:</p>
                   <input type="radio" id="Good" name="condition" value="Good" />
-                  <label className="ml-2" for="Good">
+                  <label className="ml-2" htmlFor="Good">
                     Good
                   </label>
                   <br />
@@ -78,12 +87,12 @@ const AddProduct = () => {
                     name="condition"
                     value="excellent"
                   />
-                  <label className="ml-2" for="excellent">
+                  <label className="ml-2" htmlFor="excellent">
                     Excellent
                   </label>
                   <br />
                   <input type="radio" id="fair" name="condition" value="fair" />
-                  <label className="ml-2" for="fair">
+                  <label className="ml-2" htmlFor="fair">
                     Fair
                   </label>
                 </div>

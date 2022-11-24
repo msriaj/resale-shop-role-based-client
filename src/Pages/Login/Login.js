@@ -1,13 +1,15 @@
+import axios from "axios";
 import Lottie from "lottie-react";
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { FaGoogle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 import { Page } from "../../Components/Page";
 import { notify } from "../../Components/Utility/notify";
-import { Spin } from "../../Components/Utility/Spin";
-import { AuthContext } from "../../Context/AuthContext";
+
+import { serverUrl } from "../../Context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 
 import loginAnimation from "./login.json";
 
@@ -16,13 +18,9 @@ const Login = () => {
   const location = useLocation();
   const nextUrl = location?.state?.from.pathname || "/";
 
-  const { user, signInEmail, googleSignIn, createToken, setToken } =
-    useContext(AuthContext);
-
-  const [sping, setSping] = useState(false);
+  const { signInEmail, googleSignIn } = useAuth();
 
   const submitHandler = (e) => {
-    setSping(true);
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
@@ -30,41 +28,33 @@ const Login = () => {
 
     signInEmail(email, password)
       .then((user) => {
-        setSping(false);
         navigate(nextUrl);
         notify("Login Successfully !!");
       })
       .catch((err) => {
-        setSping(false);
         notify(err.code, "error");
       });
   };
 
   const googleSignHandler = () => {
-    setSping(true);
     googleSignIn()
-      .then(async (data) => {
-        const token = await createToken(data.user.email);
-        if (token) {
-          localStorage.setItem("token", token.token);
-          setToken(token.token);
-          setSping(true);
+      .then((data) => {
+        const dbInfo = {
+          user: data.user.displayName,
+          email: data.user.email,
+          role: "buyers",
+        };
+        console.log(dbInfo);
+        axios.post(`${serverUrl}/api/google-user`, dbInfo).then((result) => {
+          console.log(result);
           navigate(nextUrl);
           notify("Login Successfully !!");
-        }
+        });
       })
       .catch((err) => notify(err.code, "error"));
   };
 
-  useEffect(() => {
-    if (user?.uid) {
-      navigate(nextUrl);
-    }
-  }, [navigate, nextUrl, user?.uid]);
-
-  return sping ? (
-    <Spin />
-  ) : (
+  return (
     <Page title="Login">
       <div className="flex md:py-16 items-center bg-blue-50">
         <div className="md:w-1/2 hidden md:block">

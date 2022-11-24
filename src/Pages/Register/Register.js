@@ -1,50 +1,73 @@
+import axios from "axios";
 import Lottie from "lottie-react";
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Page } from "../../Components/Page";
 import { notify } from "../../Components/Utility/notify";
-import { AuthContext } from "../../Context/AuthContext";
+import { serverUrl } from "../../Context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 
 import regnAnimation from "./Reg.json";
 
 const Register = () => {
-  const { setUser, createUser, updateProfileInfo, token, setToken } =
-    useContext(AuthContext);
+  const { setUser, createUser, updateProfileInfo } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const nextUrl = location?.state?.from.pathname || "/";
+  const [selectedFile, setSelectedFile] = React.useState(null);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+    const role = form.role.value;
     const displayName = form.name.value;
-    const photoURL = form.photo.value;
-    const info = { displayName: displayName, photoURL: photoURL };
+    const info = { displayName: displayName };
 
-    createUser(email, password)
-      .then(async (newUser) => {
-        updateProfileInfo(info);
-        setUser({
-          ...newUser.user,
-          displayName: displayName,
-          photoURL: photoURL,
-        });
-        console.log({
-          ...newUser.user,
-          displayName: displayName,
-          photoURL: photoURL,
-        });
-        navigate("/profile");
+    try {
+      const response = await axios({
+        method: "post",
+        url: "https://api.imgbb.com/1/upload?key=524745d913da2245979f89f34b5104d0",
+        data: formData,
+      });
+      console.log(response);
+      if (response) {
+        createUser(email, password)
+          .then(async (newUser) => {
+            updateProfileInfo(info);
+            const dbInfo = {
+              userName: displayName,
+              email: email,
+              role,
+              proPic: response?.data?.data?.url,
+            };
 
-        localStorage.setItem("token", token.token);
-        setToken(token.token);
-        navigate(nextUrl);
-        notify("Login Successfully !!");
-      })
-      .catch((err) => console.log(err));
+            axios.post(`${serverUrl}/api/add-user`, dbInfo).then((result) => {
+              console.log(result);
+              setUser({
+                ...newUser.user,
+                displayName: displayName,
+              });
+
+              navigate(nextUrl);
+              notify("Register Successfully !!");
+            });
+          })
+          .catch((err) => console.log(err));
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  const handleFileSelect = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
   return (
     <Page title="Register">
       <div>
@@ -72,18 +95,7 @@ const Register = () => {
                     required
                   />
                 </div>
-                <div className="space-y-1 text-sm">
-                  <label htmlFor="Photo" className="block   ">
-                    Photo URL
-                  </label>
-                  <input
-                    type="text"
-                    name="photo"
-                    id="Photo"
-                    placeholder="Photo"
-                    className="w-full px-4  py-3 rounded-md bg-gray-100            focus:dark:border-violet-400"
-                  />
-                </div>
+
                 <div className="space-y-1 text-sm">
                   <label htmlFor="email" className="block   ">
                     Email
@@ -109,6 +121,30 @@ const Register = () => {
                     className="w-full px-4 py-3 rounded-md bg-gray-100            focus:dark:border-violet-400"
                     required
                   />
+                </div>
+                <input type="file" onChange={handleFileSelect} />
+                <div className="space-y-1 text-sm">
+                  <label htmlFor="password" className="block   ">
+                    Are You Seller ?
+                  </label>
+                  <div className="flex items-center">
+                    <input type="radio" name="role" id="role1" value="seller" />
+                    <label className="ml-2" htmlFor="role1">
+                      <b> Yes</b>
+                    </label>
+
+                    <input
+                      type="radio"
+                      name="role"
+                      id="role2"
+                      value="buyers"
+                      className="ml-2"
+                      defaultChecked
+                    />
+                    <label className="ml-2" htmlFor="role2">
+                      <b> No</b>
+                    </label>
+                  </div>
                 </div>
                 <button className="block w-full p-3 text-center   bg-blue-500 rounded-md text-white   dark:bg-violet-400">
                   Sign Up

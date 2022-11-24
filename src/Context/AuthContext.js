@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -14,7 +15,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { app } from "./firebase.config.js";
 
 export const AuthContext = createContext();
-export const serverUrl = "https://dentina-msriaj.vercel.app";
+export const serverUrl = "http://localhost:5000";
 const auth = getAuth(app);
 
 const googleProvider = new GoogleAuthProvider();
@@ -25,6 +26,14 @@ const UserContext = ({ children }) => {
 
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState(null);
+  console.log({ role });
+  // const fetchRole = async () =>
+  //   axios
+  //     .get(`${serverUrl}/check-role?email=${user?.email}`)
+  //     .then((result) => setRole(result.data.role));
+
+  // const { data } = useQuery(["user"], fetchRole);
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -70,6 +79,14 @@ const UserContext = ({ children }) => {
   };
 
   useEffect(() => {
+    if (user) {
+      axios
+        .get(`${serverUrl}/api/check-role?email=${user?.email}`)
+        .then((result) => setRole(result.data.role));
+    }
+  }, [user]);
+
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
@@ -94,6 +111,7 @@ const UserContext = ({ children }) => {
     token,
     createToken,
     setToken,
+    role,
   };
 
   return (

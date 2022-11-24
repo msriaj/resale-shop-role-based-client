@@ -8,8 +8,10 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import MyBuyers from "../Pages/MyBuyers/MyBuyers";
 import Overview from "../Pages/Overview/Overview";
+import PostList from "../Pages/PostList/PostList";
 import Profile from "../Pages/Profile.js/Profile";
 import Register from "../Pages/Register/Register";
+import WishList from "../Pages/WishList/WishList";
 import PrivateRoute from "./PrivateRoute";
 const { createBrowserRouter } = require("react-router-dom");
 
@@ -30,6 +32,10 @@ export const routes = createBrowserRouter([
       {
         path: "/reg",
         element: <Register />,
+      },
+      {
+        path: "/category/:id",
+        element: <PostList />,
       },
       {
         path: "/product-details/:id",
@@ -76,7 +82,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/dashboard/my-wishlist/",
-        element: <p>my-wishlist</p>,
+        element: <WishList />,
       },
     ],
   },

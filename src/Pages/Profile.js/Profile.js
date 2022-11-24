@@ -1,12 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Page } from "../../Components/Page";
 import { notify } from "../../Components/Utility/notify";
-import { AuthContext } from "../../Context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 
 const Profile = () => {
   const [photoLink, setPhotoLink] = useState(null);
 
-  const { user, setUser, updateProfileInfo } = useContext(AuthContext);
+  const { user, setUser, updateProfileInfo } = useAuth();
   const submitHandler = (e) => {
     e.preventDefault();
     const form = e.target;

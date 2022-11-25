@@ -43,7 +43,9 @@ const Login = () => {
           user: data.user.displayName,
           email: data.user.email,
           role: "buyers",
+          proPic: data.user.photoURL,
         };
+        console.log(data);
         console.log(dbInfo);
         axios.post(`${serverUrl}/api/google-user`, dbInfo).then((result) => {
           console.log(result);

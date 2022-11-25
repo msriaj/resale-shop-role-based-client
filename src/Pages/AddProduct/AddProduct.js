@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import Input from "../../Components/Input/Input";
 import { notify } from "../../Components/Utility/notify";
 import { serverUrl } from "../../Context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 import { districts } from "./district";
 
 const AddProduct = () => {
+  const { user } = useAuth();
   const [selectedFile, setSelectedFile] = useState(null);
 
   const { data, isLoading } = useQuery(["categories"], () =>
@@ -45,6 +47,7 @@ const AddProduct = () => {
           description,
           useDuration,
           productImage: response?.data?.data?.url,
+          email: user.email,
         };
         console.log(productInfo);
         axios
@@ -117,7 +120,7 @@ const AddProduct = () => {
                               <option
                                 key={cat._id}
                                 className="w-full"
-                                value={cat.name}
+                                value={cat._id}
                               >
                                 {cat.name}
                               </option>

@@ -4,15 +4,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { notify } from "../../Components/Utility/notify";
 import { serverUrl } from "../../Context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 
-const AllProduct = () => {
-  const { data, isLoading, refetch } = useQuery(["allProducts"], () =>
-    axios.get(`${serverUrl}/api/products`).then((result) => result.data)
+const MyProducts = () => {
+  const { user } = useAuth();
+  const { data, isLoading, refetch } = useQuery(["myProducts"], () =>
+    axios
+      .get(`${serverUrl}/api/products?email=${user?.email}`)
+      .then((result) => result.data)
   );
-
-  if (isLoading) {
-    return "loading...";
-  }
 
   const deleteProduct = (id) => {
     axios.get(`${serverUrl}/api/delete-product/${id}`).then((result) => {
@@ -26,6 +26,11 @@ const AllProduct = () => {
       notify("Delete Success!!!", "info");
     });
   };
+
+  if (isLoading) {
+    return "loading...";
+  }
+
   if (!data.length) {
     return (
       <p className="text-center py-20 bg-white shadow border  rounded overflow-hidden font-semibold text-red-300">
@@ -60,15 +65,9 @@ const AllProduct = () => {
                             Product Details
                           </div>
                         </th>
+
                         <th className="p-2 whitespace-nowrap">
-                          <div className="font-semibold text-left">
-                            Seller Details
-                          </div>
-                        </th>
-                        <th className="p-2 whitespace-nowrap">
-                          <div className="font-semibold text-center">
-                            Status
-                          </div>
+                          <div className="font-semibold text-left">Status</div>
                         </th>
                         <th className="p-2 whitespace-nowrap">
                           <div className="font-semibold text-center">
@@ -173,4 +172,4 @@ const AllProduct = () => {
   );
 };
 
-export default AllProduct;
+export default MyProducts;

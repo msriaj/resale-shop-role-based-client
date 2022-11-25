@@ -69,6 +69,13 @@ export const Sidebar = ({ showSidebar }) => {
         <FaFolder className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
       ),
     },
+    {
+      path: "/my-products/",
+      title: "My Products",
+      icon: (
+        <FaFolder className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
+      ),
+    },
   ];
   return (
     <aside

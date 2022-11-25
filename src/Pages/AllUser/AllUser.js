@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
 import { FaCheckCircle, FaTrashAlt } from "react-icons/fa";
+import { notify } from "../../Components/Utility/notify";
 
 const AllUser = () => {
   const { data, isLoading, refetch } = useQuery(["allUser"], () =>
@@ -12,22 +13,28 @@ const AllUser = () => {
 
   const deleteUser = (id) => {
     axios.get(`http://localhost:5000/api/delete-user/${id}`).then((result) => {
-      console.log(result);
       refetch();
+      notify("Delete Success!!!", "info");
     });
   };
 
   const verifyUser = (id) => {
     axios.get(`http://localhost:5000/api/verify-user/${id}`).then((result) => {
-      console.log(result);
       refetch();
+      notify("Verify Success!!!");
     });
   };
 
-  console.log(data);
-
   if (isLoading) {
     return "loading...";
+  }
+
+  if (!data.length) {
+    return (
+      <p className="text-center py-20 bg-white shadow border  rounded overflow-hidden font-semibold text-red-300">
+        No User Found
+      </p>
+    );
   }
   return (
     <div>
@@ -70,7 +77,7 @@ const AllUser = () => {
                               }
                               width="40"
                               height="40"
-                              alt="Alex Shatov"
+                              alt={user?.user}
                             />
                           </div>
                           <div className="font-medium text-gray-800"></div>

@@ -29,6 +29,7 @@ const AddCategory = () => {
 
     const form = e.target;
     const name = form.catName.value;
+    const catDescription = form.catDescription.value;
 
     try {
       const response = await axios({
@@ -41,11 +42,13 @@ const AddCategory = () => {
         const catData = {
           name,
           catImage: response?.data?.data?.url,
+          catDescription,
         };
         axios.post(`${serverUrl}/api/add-category`, catData).then((result) => {
           if (result.data.acknowledged) {
             refetch();
             notify("Category Added Successfully !!");
+            form.reset();
           }
         });
       }
@@ -72,6 +75,12 @@ const AddCategory = () => {
             placeholder="Type Category Name"
             name="catName"
             title="Category Name"
+          />
+          <Input
+            type="text"
+            placeholder="Description"
+            name="catDescription"
+            title="Description"
           />
 
           <div class="flex items-center justify-center w-full">

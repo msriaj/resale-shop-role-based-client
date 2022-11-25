@@ -8,6 +8,7 @@ import Error from "../Pages/Error/Error";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import MyBuyers from "../Pages/MyBuyers/MyBuyers";
+import MyProducts from "../Pages/MyProduct/MyProducts";
 import Overview from "../Pages/Overview/Overview";
 import PostList from "../Pages/PostList/PostList";
 import Profile from "../Pages/Profile.js/Profile";
@@ -92,6 +93,10 @@ export const routes = createBrowserRouter([
       {
         path: "/dashboard/my-wishlist/",
         element: <WishList />,
+      },
+      {
+        path: "/dashboard/my-products/",
+        element: <MyProducts />,
       },
     ],
   },

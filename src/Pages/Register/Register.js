@@ -40,14 +40,13 @@ const Register = () => {
           .then(async (newUser) => {
             updateProfileInfo(info);
             const dbInfo = {
-              userName: displayName,
+              user: displayName,
               email: email,
               role,
               proPic: response?.data?.data?.url,
             };
 
             axios.post(`${serverUrl}/api/add-user`, dbInfo).then((result) => {
-              console.log(result);
               setUser({
                 ...newUser.user,
                 displayName: displayName,

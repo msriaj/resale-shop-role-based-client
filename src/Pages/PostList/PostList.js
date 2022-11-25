@@ -1,8 +1,14 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
+import { useLoaderData } from "react-router-dom";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 
 const PostList = () => {
+  const { data } = useLoaderData();
+
+  console.log(data);
+  if (!data.length) return <h1>No Data found</h1>;
+
   return (
     <div className="mx-5 md:w-10/12 md:mx-auto ">
       <div className="flex justify-between mb-5">
@@ -16,7 +22,9 @@ const PostList = () => {
         </div>
       </div>
       <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <ProductCard />
+        {data.map((product) => (
+          <ProductCard key={product._id} product={product} />
+        ))}
       </div>
     </div>
   );

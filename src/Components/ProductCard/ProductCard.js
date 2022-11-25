@@ -6,7 +6,17 @@ import {
   FaHeart,
   FaMapMarkerAlt,
 } from "react-icons/fa";
-const ProductCard = () => {
+const ProductCard = ({ product }) => {
+  const {
+    productName,
+    originalPrice,
+    resalePrice,
+    createdAt,
+    useDuration,
+    location,
+    sellerInfo,
+  } = product;
+  const { user, verify } = sellerInfo[0];
   return (
     <div className=" border p-5 overflow-hidden hover:shadow-lg">
       <div className="relative">
@@ -23,21 +33,21 @@ const ProductCard = () => {
       </div>
       <div className="mt-3 text-gray-400">
         <h3 className="font-bold text-2xl text-gray-600 hover:text-[#F9B127]">
-          Lorem, ipsum dolor.
+          {productName}
         </h3>
         <div className="flex justify-between items-center">
           <p className="text-2xl text-red-600 mt-1">
-            <span title="Resale Price">$88</span>
+            <span title="Resale Price">$ {resalePrice}</span>
             <span
               title="Orginal Price"
               className="text-lg text-gray-400 line-through ml-1"
             >
-              $500
+              $ {originalPrice}
             </span>
           </p>
           <p>
             <span className="flex items-center gap-1">
-              <FaCalendar /> 20/20/2022
+              <FaCalendar /> {createdAt.slice(0, 10)}
             </span>
           </p>
         </div>
@@ -45,23 +55,25 @@ const ProductCard = () => {
         <p className="flex justify-between mt-1">
           <span className="flex items-center gap-1">
             <FaMapMarkerAlt />
-            Rangamati
+            {location}
           </span>
 
           <span className="flex items-center gap-1">
-            <FaClock />2 Years Used
+            <FaClock />
+            {useDuration} Years Used
           </span>
         </p>
         <p className="flex justify-between mt-1">
           <span className="flex items-center gap-1 ">
             by
-            {/* <FaUserAlt /> */}
             <span className=" flex font-medium gap-1 items-center">
-              Rija{" "}
-              <FaCheckCircle
-                className="text-[#F9B127]"
-                title="Seller Verified"
-              />
+              {user}
+              {verify && (
+                <FaCheckCircle
+                  className="text-[#F9B127]"
+                  title="Seller Verified"
+                />
+              )}
             </span>
           </span>
         </p>

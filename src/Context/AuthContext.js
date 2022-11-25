@@ -27,13 +27,8 @@ const UserContext = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
-  console.log({ role });
-  // const fetchRole = async () =>
-  //   axios
-  //     .get(`${serverUrl}/check-role?email=${user?.email}`)
-  //     .then((result) => setRole(result.data.role));
 
-  // const { data } = useQuery(["user"], fetchRole);
+  const [userID, setUserID] = useState(null);
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -82,7 +77,10 @@ const UserContext = ({ children }) => {
     if (user) {
       axios
         .get(`${serverUrl}/api/check-role?email=${user?.email}`)
-        .then((result) => setRole(result.data.role));
+        .then((result) => {
+          setRole(result.data.role);
+          setUserID(result.data._id);
+        });
     }
   }, [user]);
 
@@ -112,6 +110,7 @@ const UserContext = ({ children }) => {
     createToken,
     setToken,
     role,
+    userID,
   };
 
   return (

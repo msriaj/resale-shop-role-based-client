@@ -130,7 +130,7 @@ const AllProduct = () => {
                           <td className="px-2 py-4 whitespace-nowrap">
                             <div className="text-center  ">
                               {result?.advertize && (
-                                <span className="bg-sky-400 text-white text-xs rounded p-1 ">
+                                <span className="border border-sky-400 text-sky-400 text-xs rounded p-1 ">
                                   Advertized
                                 </span>
                               )}

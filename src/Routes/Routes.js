@@ -1,3 +1,5 @@
+import axios from "axios";
+import { serverUrl } from "../Context/AuthContext";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Main from "../Layout/Main";
 import AddCategory from "../Pages/AddCategory/AddCategory";
@@ -38,6 +40,8 @@ export const routes = createBrowserRouter([
       {
         path: "/category/:id",
         element: <PostList />,
+        loader: ({ params }) =>
+          axios.get(`${serverUrl}/api/get-products/${params.id}`),
       },
       {
         path: "/product-details/:id",

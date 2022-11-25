@@ -1,21 +1,38 @@
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 const Slider = () => {
   return (
     <div>
       <Swiper spaceBetween={10} slidesPerView={1}>
         <SwiperSlide>
-          <div className="absolute bg-indigo-500 w-full-h">
-            <h1 className="text-7xl text-bold"> Sale your fucking device</h1>
+          <div className="absolute  w-full h-full">
+            <section className="text-gray-50 body-font">
+              <h1>Before Sold Out </h1>
+              <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut
+                repudiandae natus debitis, labore quasi itaque consectetur quod
+                sed dignissimos reprehenderit earum, est, id ea facere.
+              </p>
+              <button>Register</button>
+              <button>Login</button>
+            </section>
           </div>
-          <img src="https://cdn.discordapp.com/attachments/848180753178951731/1045424749653794906/2.png" />
+          <img
+            src="https://cdn.discordapp.com/attachments/848180753178951731/1045424749653794906/2.png"
+            alt="00"
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://cdn.discordapp.com/attachments/848180753178951731/1045424749968363560/3.png" />
+          <img
+            src="https://cdn.discordapp.com/attachments/848180753178951731/1045424749968363560/3.png"
+            alt="00"
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://cdn.discordapp.com/attachments/848180753178951731/1045424750274560040/4.png" />
+          <img
+            src="https://cdn.discordapp.com/attachments/848180753178951731/1045424750274560040/4.png"
+            alt="00"
+          />
         </SwiperSlide>
       </Swiper>
     </div>
@@ -23,34 +40,3 @@ const Slider = () => {
 };
 
 export default Slider;
-
-{
-  /* <section className="text-gray-600 body-font">
-      <div className="md:w-10/12 mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-        <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
-          <Lottie animationData={anime}> </Lottie>
-        </div>
-        <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-          <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
-            Before they sold out
-            <br className="hidden lg:inline-block" />
-            readymade gluten
-          </h1>
-          <p className="mb-8 leading-relaxed">
-            Bokkor mug try-hard pitchfork pour-over freegan heirloom neutra air
-            plant cold-pressed tacos poke beard tote bag. Heirloom echo park
-            mlkshk tote bag selvage hot chicken authentic tumeric truffaut
-            hexagon try-hard chambray.
-          </p>
-          <div className="flex justify-center">
-            <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-              Button
-            </button>
-            <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
-              Button
-            </button>
-          </div>
-        </div>
-      </div>
-    </section> */
-}

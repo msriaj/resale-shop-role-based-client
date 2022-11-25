@@ -8,7 +8,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { districts } from "./district";
 
 const AddProduct = () => {
-  const { user } = useAuth();
+  const { user, userID } = useAuth();
   const [selectedFile, setSelectedFile] = useState(null);
 
   const { data, isLoading } = useQuery(["categories"], () =>
@@ -48,6 +48,7 @@ const AddProduct = () => {
           useDuration,
           productImage: response?.data?.data?.url,
           email: user.email,
+          userID: userID,
         };
         console.log(productInfo);
         axios

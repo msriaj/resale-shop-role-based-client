@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import Lottie from "lottie-react";
 import React from "react";
@@ -10,10 +11,13 @@ import { notify } from "../../Components/Utility/notify";
 
 import { serverUrl } from "../../Context/AuthContext";
 import { useAuth } from "../../hooks/useAuth";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { Axios } from "../../services/axiosInstance";
 
 import loginAnimation from "./login.json";
 
 const Login = () => {
+  const [_, setItem] = useLocalStorage();
   const navigate = useNavigate();
   const location = useLocation();
   const nextUrl = location?.state?.from.pathname || "/";
@@ -28,8 +32,14 @@ const Login = () => {
 
     signInEmail(email, password)
       .then((user) => {
-        navigate(nextUrl);
-        notify("Login Successfully !!");
+        console.log(user.user.email);
+        axios
+          .post(`${serverUrl}/api/get-token`, { email: user.user.email })
+          .then((result) => {
+            setItem("token", result.data.token);
+            navigate(nextUrl);
+            notify("Login Successfully !!");
+          });
       })
       .catch((err) => {
         notify(err.code, "error");
@@ -47,8 +57,8 @@ const Login = () => {
         };
         console.log(data);
         console.log(dbInfo);
-        axios.post(`${serverUrl}/api/google-user`, dbInfo).then((result) => {
-          console.log(result);
+        Axios.post("/api/google-user", dbInfo).then((result) => {
+          setItem("token", result.data.token);
           navigate(nextUrl);
           notify("Login Successfully !!");
         });

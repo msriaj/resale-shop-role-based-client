@@ -1,15 +1,18 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import Lottie from "lottie-react";
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Page } from "../../Components/Page";
 import { notify } from "../../Components/Utility/notify";
-import { serverUrl } from "../../Context/AuthContext";
 import { useAuth } from "../../hooks/useAuth";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { Axios } from "../../services/axiosInstance";
 
 import regnAnimation from "./Reg.json";
 
 const Register = () => {
+  const [_, setItem] = useLocalStorage();
   const { setUser, createUser, updateProfileInfo } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -46,7 +49,8 @@ const Register = () => {
               proPic: response?.data?.data?.url,
             };
 
-            axios.post(`${serverUrl}/api/add-user`, dbInfo).then((result) => {
+            Axios.post("/api/add-user", dbInfo).then((result) => {
+              setItem("token", result.data.token);
               setUser({
                 ...newUser.user,
                 displayName: displayName,

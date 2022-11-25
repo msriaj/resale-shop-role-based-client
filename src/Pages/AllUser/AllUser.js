@@ -1,32 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import React from "react";
 import { FaCheckCircle, FaTrashAlt } from "react-icons/fa";
+import Loading from "../../Components/Utility/Loading";
 import { notify } from "../../Components/Utility/notify";
+import { Axios } from "../../services/axiosInstance";
 
 const AllUser = () => {
   const { data, isLoading, refetch } = useQuery(["allUser"], () =>
-    axios
-      .get("http://localhost:5000/api/all-user")
-      .then((result) => result.data)
+    Axios.get("/api/all-user").then((result) => result.data)
   );
 
   const deleteUser = (id) => {
-    axios.get(`http://localhost:5000/api/delete-user/${id}`).then((result) => {
+    Axios.get(`/api/delete-user/${id}`).then((result) => {
       refetch();
       notify("Delete Success!!!", "info");
     });
   };
 
   const verifyUser = (id) => {
-    axios.get(`http://localhost:5000/api/verify-user/${id}`).then((result) => {
+    Axios.get(`/api/verify-user/${id}`).then((result) => {
       refetch();
       notify("Verify Success!!!");
     });
   };
 
   if (isLoading) {
-    return "loading...";
+    return <Loading />;
   }
 
   if (!data.length) {

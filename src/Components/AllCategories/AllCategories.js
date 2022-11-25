@@ -3,20 +3,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Axios } from "../../services/axiosInstance";
 import Loading from "../Utility/Loading";
-const Categories = () => {
+import NotFound from "../Utility/NotFound";
+
+const AllCategories = () => {
   const { data, isLoading } = useQuery(["categories"], () =>
     Axios.get("/api/categories").then((result) => result.data)
   );
-  console.log(data);
+
   if (isLoading) {
     return <Loading />;
   }
-  const newData = data?.slice(0, 5);
+  if (!data.length) {
+    return <NotFound />;
+  }
   return (
     <div className="md:w-10/12 mx-auto">
       <h2 className="text-3xl mb-5">Top Selling Brands</h2>
       <div className="grid mx-5 gap-5 grid-cols-2  md:grid-cols-5">
-        {newData.map((cat) => (
+        {data.map((cat) => (
           <div
             key={cat._id}
             className="border px-5 py-3 overflow-hidden  hover:shadow-lg flex justify-center items-center"
@@ -31,11 +35,8 @@ const Categories = () => {
           </div>
         ))}
       </div>
-      <div>
-        <Link to="/categories">Show All Categories</Link>
-      </div>
     </div>
   );
 };
 
-export default Categories;
+export default AllCategories;

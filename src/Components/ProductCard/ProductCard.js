@@ -37,12 +37,12 @@ const ProductCard = ({ product }) => {
         </h3>
         <div className="flex justify-between items-center">
           <p className="text-2xl text-red-600 mt-1">
-            <span title="Resale Price">$ {resalePrice}</span>
+            <span title="Resale Price">৳ {resalePrice}</span>
             <span
               title="Orginal Price"
               className="text-lg text-gray-400 line-through ml-1"
             >
-              $ {originalPrice}
+              ৳ {originalPrice}
             </span>
           </p>
           <p>

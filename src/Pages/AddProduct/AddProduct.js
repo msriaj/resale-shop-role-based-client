@@ -2,17 +2,21 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useState } from "react";
 import Input from "../../Components/Input/Input";
+import Loading from "../../Components/Utility/Loading";
 import { notify } from "../../Components/Utility/notify";
 import { serverUrl } from "../../Context/AuthContext";
 import { useAuth } from "../../hooks/useAuth";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { Axios } from "../../services/axiosInstance";
 import { districts } from "./district";
 
 const AddProduct = () => {
   const { user, userID } = useAuth();
   const [selectedFile, setSelectedFile] = useState(null);
-
+  const [getItem] = useLocalStorage();
+  console.log(getItem);
   const { data, isLoading } = useQuery(["categories"], () =>
-    axios.get(`${serverUrl}/api/categories`).then((result) => result.data)
+    Axios.get("/api/categories").then((result) => result.data)
   );
 
   const submitHandler = async (e) => {
@@ -52,9 +56,13 @@ const AddProduct = () => {
         };
         console.log(productInfo);
         axios
-          .post(`${serverUrl}/api/add-product`, productInfo)
+          .post(`${serverUrl}/api/add-product`, productInfo, {
+            headers: {
+              Authorization: `Bearer ${getItem("token")}`,
+            },
+          })
           .then((result) => {
-            form.reset();
+            // form.reset();
             notify("Product Published Successfully !!");
           })
           .catch((err) => console.log(err));
@@ -69,7 +77,7 @@ const AddProduct = () => {
   };
 
   if (isLoading) {
-    return "loading...";
+    return <Loading />;
   }
 
   return (
@@ -114,9 +122,7 @@ const AddProduct = () => {
                             name="category"
                             className="  border p-2  rounded"
                           >
-                            <option className="w-full " selected>
-                              Select Category
-                            </option>
+                            <option className="w-full ">Select Category</option>
                             {data.map((cat) => (
                               <option
                                 key={cat._id}
@@ -145,7 +151,7 @@ const AddProduct = () => {
                             name="location"
                             className="  border p-2  rounded"
                           >
-                            <option className="w-full " selected>
+                            <option className="w-full ">
                               Select Your Location
                             </option>
                             {districts.map((district) => (

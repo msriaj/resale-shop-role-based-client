@@ -1,13 +1,24 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
-import { useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ProductCard from "../../Components/ProductCard/ProductCard";
+import Loading from "../../Components/Utility/Loading";
+import NotFound from "../../Components/Utility/NotFound";
+import { Axios } from "../../services/axiosInstance";
 
 const PostList = () => {
-  const { data } = useLoaderData();
+  const { id } = useParams();
+  const { data, isLoading } = useQuery([{ id }], () =>
+    Axios.get(`/api/get-products/${id}`)
+  );
+  const newData = data?.data;
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (!data || !newData.length) return <NotFound />;
 
-  console.log(data);
-  if (!data.length) return <h1>No Data found</h1>;
+  console.log({ newData });
 
   return (
     <div className="mx-5 md:w-10/12 md:mx-auto ">
@@ -22,7 +33,7 @@ const PostList = () => {
         </div>
       </div>
       <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {data.map((product) => (
+        {newData?.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}
       </div>

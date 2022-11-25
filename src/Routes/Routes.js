@@ -1,5 +1,4 @@
-import axios from "axios";
-import { serverUrl } from "../Context/AuthContext";
+import AllCategories from "../Components/AllCategories/AllCategories";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Main from "../Layout/Main";
 import AddCategory from "../Pages/AddCategory/AddCategory";
@@ -38,10 +37,12 @@ export const routes = createBrowserRouter([
         element: <Register />,
       },
       {
+        path: "/categories",
+        element: <AllCategories />,
+      },
+      {
         path: "/category/:id",
         element: <PostList />,
-        loader: ({ params }) =>
-          axios.get(`${serverUrl}/api/get-products/${params.id}`),
       },
       {
         path: "/product-details/:id",

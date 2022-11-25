@@ -1,34 +1,34 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
+import Loading from "../../Components/Utility/Loading";
 import { notify } from "../../Components/Utility/notify";
-import { serverUrl } from "../../Context/AuthContext";
 import { useAuth } from "../../hooks/useAuth";
+import { Axios } from "../../services/axiosInstance";
 
 const MyProducts = () => {
   const { user } = useAuth();
   const { data, isLoading, refetch } = useQuery(["myProducts"], () =>
-    axios
-      .get(`${serverUrl}/api/products?email=${user?.email}`)
-      .then((result) => result.data)
+    Axios.get(`/api/products?email=${user?.email}`).then(
+      (result) => result.data
+    )
   );
 
   const deleteProduct = (id) => {
-    axios.get(`${serverUrl}/api/delete-product/${id}`).then((result) => {
+    Axios.get(`/api/delete-product/${id}`).then((result) => {
       refetch();
       notify("Delete Success!!!", "info");
     });
   };
   const advertizeProduct = (id) => {
-    axios.get(`${serverUrl}/api/advertize-product/${id}`).then((result) => {
+    Axios.get(`/api/advertize-product/${id}`).then((result) => {
       refetch();
       notify("Delete Success!!!", "info");
     });
   };
 
   if (isLoading) {
-    return "loading...";
+    return <Loading />;
   }
 
   if (!data.length) {

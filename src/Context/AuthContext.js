@@ -22,8 +22,6 @@ const googleProvider = new GoogleAuthProvider();
 const gitHubProvider = new GithubAuthProvider();
 
 const UserContext = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem("token"));
-
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
@@ -49,17 +47,6 @@ const UserContext = ({ children }) => {
     return signInWithPopup(auth, googleProvider);
   };
 
-  const createToken = async (email) => {
-    const data = await fetch(`${serverUrl}/create-token`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    });
-    return await data.json();
-  };
-
   const signInGithub = () => {
     setLoading(true);
     return signInWithPopup(auth, gitHubProvider);
@@ -79,6 +66,7 @@ const UserContext = ({ children }) => {
         .get(`${serverUrl}/api/check-role?email=${user?.email}`)
         .then((result) => {
           setRole(result.data.role);
+          console.log(result.data);
           setUserID(result.data._id);
         });
     }
@@ -106,9 +94,6 @@ const UserContext = ({ children }) => {
     loading,
     resetPass,
     updateProfileInfo,
-    token,
-    createToken,
-    setToken,
     role,
     userID,
   };

@@ -3,23 +3,22 @@ import axios from "axios";
 import React from "react";
 import { FaCloudUploadAlt, FaTrash } from "react-icons/fa";
 import Input from "../../Components/Input/Input";
+import Loading from "../../Components/Utility/Loading";
 import { notify } from "../../Components/Utility/notify";
-import { serverUrl } from "../../Context/AuthContext";
+import { Axios } from "../../services/axiosInstance";
 
 const AddCategory = () => {
   const [selectedFile, setSelectedFile] = React.useState(null);
 
   const { data, isLoading, refetch } = useQuery(["categories"], () =>
-    axios.get(`${serverUrl}/api/categories`).then((result) => result.data)
+    Axios.get("/api/categories").then((result) => result.data)
   );
 
   const deleteCategory = (id) => {
-    axios
-      .get(`http://localhost:5000/api/delete-category/${id}`)
-      .then((result) => {
-        console.log(result);
-        refetch();
-      });
+    axios.get(`/api/delete-category/${id}`).then((result) => {
+      console.log(result);
+      refetch();
+    });
   };
 
   const submitHandler = async (e) => {
@@ -44,7 +43,7 @@ const AddCategory = () => {
           catImage: response?.data?.data?.url,
           catDescription,
         };
-        axios.post(`${serverUrl}/api/add-category`, catData).then((result) => {
+        Axios.post("/api/add-category", catData).then((result) => {
           if (result.data.acknowledged) {
             refetch();
             notify("Category Added Successfully !!");
@@ -58,7 +57,7 @@ const AddCategory = () => {
   };
 
   if (isLoading) {
-    return "loading...";
+    return <Loading />;
   }
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -83,18 +82,18 @@ const AddCategory = () => {
             title="Description"
           />
 
-          <div class="flex items-center justify-center w-full">
+          <div className="flex items-center justify-center w-full">
             <label
               for="dropzone-file"
-              class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-400 border-dashed rounded-lg cursor-pointer bg-gray-100 hover:bg-white"
+              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-400 border-dashed rounded-lg cursor-pointer bg-gray-100 hover:bg-white"
             >
-              <div class="flex flex-col items-center justify-center pt-5 pb-6">
+              <div className="flex flex-col items-center justify-center pt-5 pb-6">
                 <FaCloudUploadAlt className="text-4xl text-gray-600" />
-                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span class="font-semibold">Click to upload</span> or drag and
-                  drop
+                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  <span className="font-semibold">Click to upload</span> or drag
+                  and drop
                 </p>
-                <p class="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   SVG, PNG, JPG or GIF (MAX. 800x400px)
                 </p>
               </div>
@@ -102,7 +101,7 @@ const AddCategory = () => {
                 id="dropzone-file"
                 type="file"
                 onChange={handleFileSelect}
-                class="hidden"
+                className="hidden"
               />
             </label>
           </div>

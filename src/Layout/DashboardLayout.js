@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { FaBars, FaMobile, FaSignOutAlt } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
+import { notify } from "../Components/Utility/notify";
 import { useAuth } from "../hooks/useAuth";
 import { Sidebar } from "./Sidebar";
 
 const DashboardLayout = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const { role } = useAuth();
-  console.log(role);
+  const { role, logOut } = useAuth();
+
   return (
     <div>
       <div>
@@ -19,7 +20,6 @@ const DashboardLayout = () => {
                   id="toggleSidebarMobile"
                   onClick={() => {
                     setShowSidebar(!showSidebar);
-                    console.log("clicked");
                   }}
                   className="lg:hidden mr-2 text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded"
                 >
@@ -38,7 +38,13 @@ const DashboardLayout = () => {
                   Welcome , <b>Riaj</b>
                 </p>
                 <button className=" md:ml-5 rounded p-2 text-gray-400">
-                  <FaSignOutAlt title="Logout" />
+                  <FaSignOutAlt
+                    onClick={() => {
+                      logOut();
+                      notify("Logout Successfully !!!", "error");
+                    }}
+                    title="Logout"
+                  />
                 </button>
               </div>
             </div>

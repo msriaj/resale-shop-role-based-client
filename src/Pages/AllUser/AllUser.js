@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaCheckCircle, FaTrashAlt } from "react-icons/fa";
 
 const AllUser = () => {
   const { data, isLoading, refetch } = useQuery(["allUser"], () =>
@@ -12,6 +12,13 @@ const AllUser = () => {
 
   const deleteUser = (id) => {
     axios.get(`http://localhost:5000/api/delete-user/${id}`).then((result) => {
+      console.log(result);
+      refetch();
+    });
+  };
+
+  const verifyUser = (id) => {
+    axios.get(`http://localhost:5000/api/verify-user/${id}`).then((result) => {
       console.log(result);
       refetch();
     });
@@ -44,7 +51,7 @@ const AllUser = () => {
                       <div className="font-semibold text-left">Email</div>
                     </th>
                     <th className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-center">Country</div>
+                      <div className="font-semibold text-center">Action</div>
                     </th>
                   </tr>
                 </thead>
@@ -70,21 +77,28 @@ const AllUser = () => {
                         </div>
                       </td>
                       <td className="p-2 whitespace-nowrap">
-                        <div className="text-left"> {user?.user}</div>
+                        <div className="text-left flex items-center gap-1 font-semibold">
+                          {user?.user} {user?.verify && <FaCheckCircle />}
+                        </div>
                       </td>
                       <td className="p-2 whitespace-nowrap">
-                        <div className="text-left font-medium text-green-500">
+                        <div className="text-left font-medium ">
                           {user?.email}
                         </div>
                       </td>
                       <td className="p-2 whitespace-nowrap">
                         <div className="text-lg text-center flex items-center justify-center gap-1">
-                          <button
-                            onClick={() => console.log(user._id)}
-                            className="bg-green-600 text-white p-1 text-sm rounded-md px-4 uppercase"
-                          >
-                            Verify
-                          </button>
+                          {user?.verify ? (
+                            <span className="text-green-400"> verified</span>
+                          ) : (
+                            <button
+                              onClick={() => verifyUser(user._id)}
+                              className="bg-green-600 text-white p-1 text-sm rounded-md px-4 uppercase"
+                            >
+                              Verify
+                            </button>
+                          )}
+
                           <button
                             onClick={() => deleteUser(user._id)}
                             className="bg-red-400 text-white p-2 text-sm rounded-md px-4"

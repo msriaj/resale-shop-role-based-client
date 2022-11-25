@@ -2,6 +2,7 @@ import React from "react";
 import {
   FaCartArrowDown,
   FaChartPie,
+  FaFolder,
   FaHeart,
   FaShoppingBag,
   FaStore,
@@ -59,6 +60,13 @@ export const Sidebar = ({ showSidebar }) => {
       title: "Wishlist",
       icon: (
         <FaHeart className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
+      ),
+    },
+    {
+      path: "/add-category/",
+      title: "Add Category",
+      icon: (
+        <FaFolder className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
       ),
     },
   ];

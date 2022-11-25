@@ -1,5 +1,6 @@
 import DashboardLayout from "../Layout/DashboardLayout";
 import Main from "../Layout/Main";
+import AddCategory from "../Pages/AddCategory/AddCategory";
 import AddProduct from "../Pages/AddProduct/AddProduct";
 import AllProduct from "../Pages/AllProduct/AllProduct";
 import AllUser from "../Pages/AllUser/AllUser";
@@ -54,7 +55,11 @@ export const routes = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/dashboard/overview",
@@ -71,6 +76,10 @@ export const routes = createBrowserRouter([
       {
         path: "/dashboard/my-buyers/",
         element: <MyBuyers />,
+      },
+      {
+        path: "/dashboard/add-category/",
+        element: <AddCategory />,
       },
       {
         path: "/dashboard/all-user/",

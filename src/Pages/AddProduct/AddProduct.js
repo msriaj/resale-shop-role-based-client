@@ -1,36 +1,132 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import React, { useState } from "react";
 import Input from "../../Components/Input/Input";
+import { notify } from "../../Components/Utility/notify";
+import { serverUrl } from "../../Context/AuthContext";
 import { districts } from "./district";
 
 const AddProduct = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const { data, isLoading } = useQuery(["categories"], () =>
+    axios.get(`${serverUrl}/api/categories`).then((result) => result.data)
+  );
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const productName = form.productName.value;
+    const originalPrice = form.originalPrice.value;
+    const resalePrice = form.resalePrice.value;
+    const category = form.category.value;
+    const location = form.location.value;
+    const condition = form.condition.value;
+    const description = form.description.value;
+    const useDuration = form.useDuration.value;
+
+    const formData = new FormData();
+
+    formData.append("image", selectedFile);
+    try {
+      const response = await axios({
+        method: "post",
+        url: "https://api.imgbb.com/1/upload?key=524745d913da2245979f89f34b5104d0",
+        data: formData,
+      });
+      if (response) {
+        const productInfo = {
+          productName,
+          originalPrice,
+          resalePrice,
+          category,
+          location,
+          condition,
+          description,
+          useDuration,
+          productImage: response?.data?.data?.url,
+        };
+        console.log(productInfo);
+        axios
+          .post(`${serverUrl}/api/add-product`, productInfo)
+          .then((result) => {
+            form.reset();
+            notify("Product Published Successfully !!");
+          })
+          .catch((err) => console.log(err));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleFileSelect = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  if (isLoading) {
+    return "loading...";
+  }
+
   return (
     <div>
       <div className="mt-5 md:col-span-2 md:mt-0">
-        <form className="">
+        <form onSubmit={submitHandler}>
           <div className="shadow sm:overflow-hidden sm:rounded-md">
             <div className=" bg-white px-4 py-5 sm:p-6">
               <div className="">
                 <Input
                   title="Product Name"
                   placeholder="Product Name"
-                  name="product-name"
+                  name="productName"
                   type="text"
                 />
                 <div className="grid grid-cols-2 gap-5">
                   <Input
                     title="Resale Price"
                     placeholder="Resale Price"
-                    name="resale-price"
+                    name="resalePrice"
                     type="number"
                   />
                   <Input
                     title="Original Price"
                     placeholder="Original Price"
-                    name="original-price"
+                    name="originalPrice"
                     type="number"
                   />
                 </div>
-                <div className="grid grid-cols-2 gap-5">
+                <div className="grid md:grid-cols-3 gap-5">
+                  <div>
+                    <label
+                      htmlFor="category"
+                      className="block text-sm font-medium text-gray-700 mt-5"
+                    >
+                      Category
+                    </label>
+                    <div className="mt-1 flex rounded-md shadow-sm">
+                      <div className="flex justify-center">
+                        <div className="flex grow">
+                          <select
+                            name="category"
+                            className="  border p-2  rounded"
+                          >
+                            <option className="w-full " selected>
+                              Select Category
+                            </option>
+                            {data.map((cat) => (
+                              <option
+                                key={cat._id}
+                                className="w-full"
+                                value={cat.name}
+                              >
+                                {cat.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div>
                     <label
                       htmlFor="location"
@@ -41,7 +137,10 @@ const AddProduct = () => {
                     <div className="mt-1 flex rounded-md shadow-sm">
                       <div className="flex justify-center">
                         <div className="flex grow">
-                          <select className="  border p-2  rounded">
+                          <select
+                            name="location"
+                            className="  border p-2  rounded"
+                          >
                             <option className="w-full " selected>
                               Select Your Location
                             </option>
@@ -59,10 +158,11 @@ const AddProduct = () => {
                       </div>
                     </div>
                   </div>
+
                   <Input
                     title="Years Of Used"
                     placeholder="Years Of Used"
-                    name={"resale-price"}
+                    name={"useDuration"}
                     type="number"
                   />
                 </div>
@@ -70,7 +170,7 @@ const AddProduct = () => {
                   <Input
                     title="Descriptions "
                     placeholder="Descriptions"
-                    name="descriptions"
+                    name="description"
                     type="textarea"
                   />
                 </div>
@@ -102,42 +202,8 @@ const AddProduct = () => {
                 <label className="block text-sm font-medium text-gray-700 mt-5">
                   Product Images
                 </label>
-                <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
-                  <div className="space-y-1 text-center">
-                    <svg
-                      className="mx-auto h-12 w-12 text-gray-400"
-                      stroke="currentColor"
-                      fill="none"
-                      viewBox="0 0 48 48"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    <div className="flex text-sm text-gray-600">
-                      <label
-                        htmlFor="file-upload"
-                        className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
-                      >
-                        <span>Upload a file</span>
-                        <input
-                          id="file-upload"
-                          name="file-upload"
-                          type="file"
-                          className="sr-only"
-                        />
-                      </label>
-                      <p className="pl-1">or drag and drop</p>
-                    </div>
-                    <p className="text-xs text-gray-500">
-                      PNG, JPG, GIF up to 10MB
-                    </p>
-                  </div>
-                </div>
+
+                <input type="file" onChange={handleFileSelect} />
               </div>
             </div>
             <div className="px-4 py-3 text-right sm:px-6">

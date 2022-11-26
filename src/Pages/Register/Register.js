@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import axios from "axios";
 import Lottie from "lottie-react";
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -32,12 +31,16 @@ const Register = () => {
     const info = { displayName: displayName };
 
     try {
-      const response = await axios({
-        method: "post",
-        url: "https://api.imgbb.com/1/upload?key=524745d913da2245979f89f34b5104d0",
-        data: formData,
-      });
-      console.log(response);
+      const fetchData = await fetch(
+        "https://api.imgbb.com/1/upload?key=524745d913da2245979f89f34b5104d0",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const response = await fetchData.json();
+
       if (response) {
         createUser(email, password)
           .then(async (newUser) => {
@@ -46,7 +49,7 @@ const Register = () => {
               user: displayName,
               email: email,
               role,
-              proPic: response?.data?.data?.url,
+              proPic: response?.data?.url,
             };
 
             Axios.post("/api/add-user", dbInfo).then((result) => {

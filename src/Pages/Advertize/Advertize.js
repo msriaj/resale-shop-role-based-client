@@ -1,29 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
-import { useParams } from "react-router-dom";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import Loading from "../../Components/Utility/Loading";
-import NotFound from "../../Components/Utility/NotFound";
 import { Axios } from "../../services/axiosInstance";
 
-const PostList = () => {
-  const { id } = useParams();
-  const { data, isLoading } = useQuery([{ id }], () =>
-    Axios.get(`/api/get-products/${id}`)
+const Advertize = () => {
+  const { data, isLoading } = useQuery(["advertizes"], () =>
+    Axios.get(`/api/advertize/`)
   );
   const newData = data?.data;
   if (isLoading) {
     return <Loading />;
   }
-  if (!data || !newData.length) return <NotFound />;
-
-  console.log({ newData });
+  if (!data || !newData.length) return "";
 
   return (
     <div className="">
       <div className="mx-5 md:w-10/12 md:mx-auto ">
-        <div className="flex mt-8 justify-between mb-5">
+        <div className="flex flex-col md:flex-row mt-8 justify-between mb-5">
           <div>
             <h2 className="text-2xl mt-5 text-left text-[#222222] font-semibold">
               Resent advertizes
@@ -50,4 +45,4 @@ const PostList = () => {
   );
 };
 
-export default PostList;
+export default Advertize;

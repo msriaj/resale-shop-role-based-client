@@ -12,6 +12,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import React, { createContext, useEffect, useState } from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage.js";
 import { app } from "./firebase.config.js";
 
 export const AuthContext = createContext();
@@ -22,11 +23,16 @@ const googleProvider = new GoogleAuthProvider();
 const gitHubProvider = new GithubAuthProvider();
 
 const UserContext = ({ children }) => {
+  const [getItem] = useLocalStorage();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
 
   const [userID, setUserID] = useState(null);
+
+  const isAuth = () => {
+    return !!userID;
+  };
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -83,6 +89,13 @@ const UserContext = ({ children }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!getItem("token")) {
+      logOut();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const authInfo = {
     createUser,
     signInEmail,
@@ -96,6 +109,7 @@ const UserContext = ({ children }) => {
     updateProfileInfo,
     role,
     userID,
+    isAuth,
   };
 
   return (

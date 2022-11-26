@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { FaCloudUploadAlt, FaTrash } from "react-icons/fa";
 import Input from "../../Components/Input/Input";
 import Loading from "../../Components/Utility/Loading";
@@ -8,7 +8,8 @@ import { notify } from "../../Components/Utility/notify";
 import { Axios } from "../../services/axiosInstance";
 
 const AddCategory = () => {
-  const [selectedFile, setSelectedFile] = React.useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [img, setImg] = useState("");
 
   const { data, isLoading, refetch } = useQuery(["categories"], () =>
     Axios.get("/api/categories").then((result) => result.data)
@@ -16,7 +17,7 @@ const AddCategory = () => {
 
   const deleteCategory = (id) => {
     axios.get(`/api/delete-category/${id}`).then((result) => {
-      console.log(result);
+      notify("Category Deleted !!");
       refetch();
     });
   };
@@ -31,28 +32,39 @@ const AddCategory = () => {
     const catDescription = form.catDescription.value;
 
     try {
-      const response = await axios({
-        method: "post",
-        url: "https://api.imgbb.com/1/upload?key=524745d913da2245979f89f34b5104d0",
-        data: formData,
-      });
+      const fetchData = await fetch(
+        "https://api.imgbb.com/1/upload?key=524745d913da2245979f89f34b5104d0",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
+      const response = await fetchData.json();
+
+      console.log(response?.data?.url);
       if (response) {
         const catData = {
           name,
-          catImage: response?.data?.data?.url,
+          catImage: response?.data?.url,
           catDescription,
         };
-        Axios.post("/api/add-category", catData).then((result) => {
-          if (result.data.acknowledged) {
-            refetch();
-            notify("Category Added Successfully !!");
-            form.reset();
-          }
-        });
+        Axios.post("/api/add-category", catData)
+          .then((result) => {
+            if (result.data.acknowledged) {
+              refetch();
+              notify("Category Added Successfully !!");
+              form.reset();
+            }
+          })
+          .catch((err) => {
+            if (err.response.data) {
+              notify(err.response.data, "error");
+            }
+          });
       }
     } catch (error) {
-      console.error(error);
+      console.error(error.response);
     }
   };
 
@@ -61,7 +73,17 @@ const AddCategory = () => {
   }
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
+
+    if (event.target.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.addEventListener("load", () => {
+        setImg(reader.result);
+      });
+    }
   };
+
+  console.log({ img });
   return (
     <div className="grid grid-cols-2 gap-10">
       <div>
@@ -87,21 +109,30 @@ const AddCategory = () => {
               for="dropzone-file"
               className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-400 border-dashed rounded-lg cursor-pointer bg-gray-100 hover:bg-white"
             >
-              <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                <FaCloudUploadAlt className="text-4xl text-gray-600" />
-                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-semibold">Click to upload</span> or drag
-                  and drop
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  SVG, PNG, JPG or GIF (MAX. 800x400px)
-                </p>
+              <div className="flex flex-col overflow-hidden items-center justify-center pt-5 pb-6">
+                {img ? (
+                  <div className="p-5">
+                    {" "}
+                    <img src={img} className="h-48" alt="s" />
+                  </div>
+                ) : (
+                  <>
+                    <FaCloudUploadAlt className="text-4xl text-gray-600" />
+                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                      <span className="font-semibold">Click to upload</span> or
+                      drag and drop
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      SVG, PNG, JPG or GIF (MAX. 800x400px)
+                    </p>
+                  </>
+                )}
               </div>
               <input
                 id="dropzone-file"
                 type="file"
                 onChange={handleFileSelect}
-                className="hidden"
+                hidden
               />
             </label>
           </div>

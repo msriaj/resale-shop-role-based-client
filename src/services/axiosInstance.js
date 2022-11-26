@@ -9,7 +9,7 @@ axios.interceptors.request.use(
     if (token) {
       config.headers = {
         ...config.headers,
-        Authorization: `Bearer ${token}`,
+        token: `Bearer ${JSON.parse(token)}`,
       };
     }
 

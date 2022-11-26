@@ -13,6 +13,7 @@ const Input = ({ title, placeholder, name, type }) => {
           id={name}
           className="block w-full  border p-2  rounded"
           placeholder={placeholder}
+          required
         />
       </div>
     </div>

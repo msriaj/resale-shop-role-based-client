@@ -1,20 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import React, { useState } from "react";
 import Input from "../../Components/Input/Input";
 import Loading from "../../Components/Utility/Loading";
 import { notify } from "../../Components/Utility/notify";
 import { serverUrl } from "../../Context/AuthContext";
 import { useAuth } from "../../hooks/useAuth";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { Axios } from "../../services/axiosInstance";
 import { districts } from "./district";
 
 const AddProduct = () => {
   const { user, userID } = useAuth();
   const [selectedFile, setSelectedFile] = useState(null);
-  const [getItem] = useLocalStorage();
-  console.log(getItem);
+
   const { data, isLoading } = useQuery(["categories"], () =>
     Axios.get("/api/categories").then((result) => result.data)
   );
@@ -35,11 +32,16 @@ const AddProduct = () => {
 
     formData.append("image", selectedFile);
     try {
-      const response = await axios({
-        method: "post",
-        url: "https://api.imgbb.com/1/upload?key=524745d913da2245979f89f34b5104d0",
-        data: formData,
-      });
+      const fetchData = await fetch(
+        "https://api.imgbb.com/1/upload?key=524745d913da2245979f89f34b5104d0",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const response = await fetchData.json();
+
       if (response) {
         const productInfo = {
           productName,
@@ -50,17 +52,12 @@ const AddProduct = () => {
           condition,
           description,
           useDuration,
-          productImage: response?.data?.data?.url,
+          productImage: response?.data?.url,
           email: user.email,
           userID: userID,
         };
         console.log(productInfo);
-        axios
-          .post(`${serverUrl}/api/add-product`, productInfo, {
-            headers: {
-              Authorization: `Bearer ${getItem("token")}`,
-            },
-          })
+        Axios.post(`${serverUrl}/api/add-product`, productInfo)
           .then((result) => {
             // form.reset();
             notify("Product Published Successfully !!");

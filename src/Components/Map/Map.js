@@ -5,7 +5,7 @@ const Map = () => {
   return (
     <div>
       <section className="text-gray-600 body-font">
-        <div className="w-10/12 px-5 py-24 mx-auto flex justify-between ">
+        <div className="w-10/12 px-5 py-24 mx-auto flex flex-col md:flex-row justify-between ">
           <div className="w-full md:w-1/2 flex flex-col  justify-center">
             <div className="w-full sm:p-4 px-4 mb-6">
               <h1 className="title-font font-medium text-xl mb-2 text-gray-900">
@@ -23,12 +23,6 @@ const Map = () => {
                   2.7K
                 </h2>
                 <p className="leading-relaxed">Users</p>
-              </div>
-              <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                <h2 className="title-font font-medium text-3xl text-gray-900">
-                  1.8K
-                </h2>
-                <p className="leading-relaxed">Subscribes</p>
               </div>
               <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
                 <h2 className="title-font font-medium text-3xl text-gray-900">

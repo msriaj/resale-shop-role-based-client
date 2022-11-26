@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Loading from "../../Components/Utility/Loading";
 import { notify } from "../../Components/Utility/notify";
@@ -7,7 +8,7 @@ import { Axios } from "../../services/axiosInstance";
 
 const AllProduct = () => {
   const { data, isLoading, refetch } = useQuery(["allProducts"], () =>
-    Axios.get("/api/products").then((result) => result.data)
+    Axios.get("/api/get-products").then((result) => result.data)
   );
 
   if (isLoading) {
@@ -48,9 +49,7 @@ const AllProduct = () => {
                     <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                       <tr>
                         <th className="p-2 whitespace-nowrap">
-                          <div className="font-semibold text-left">
-                            Image Name
-                          </div>
+                          <div className="font-semibold text-left">Name</div>
                         </th>
                         <th className="p-2 whitespace-nowrap">
                           <div className="font-semibold text-center">Price</div>
@@ -81,7 +80,7 @@ const AllProduct = () => {
                       {data.map((result) => (
                         <tr key={result._id} className="hover:bg-gray-100 ">
                           <td className="px-2 py-4 whitespace-nowrap">
-                            <div className=" ">
+                            <div className="flex items-center ">
                               <img
                                 className="w-12 h-12 rounded shadow mr-2 hidden md:block"
                                 src={result.productImage}
@@ -96,10 +95,7 @@ const AllProduct = () => {
                             <div className="text-center flex flex-col items-center ">
                               <div className="flex">
                                 <span className=" p-1 font-semibold">
-                                  {result.resalePrice}{" "}
-                                  <span className="text-gray-400">
-                                    ({result.originalPrice})
-                                  </span>
+                                  {result.resalePrice}
                                 </span>
                               </div>
                             </div>
@@ -107,24 +103,34 @@ const AllProduct = () => {
                           <td className="px-2 py-4 whitespace-nowrap">
                             <div className="text-left text-gray-600 ">
                               <p>
-                                <b>Category:</b> {result.category}{" "}
+                                <b>Original Price:</b> {result.originalPrice}
                               </p>
+
                               <p>
                                 <b>Condition:</b> {result.condition}
                               </p>
                               <p>
                                 <b>useDuration:</b> {result.useDuration}
                               </p>
-                              {/* <p>
-                                <b>Description:</b> {result.description}
-                              </p> */}
                             </div>
                           </td>
-                          <td className="px-2 py-4 whitespace-nowrap">
+                          <td className="px-2 py-4 text-gray-500 whitespace-nowrap">
                             <div className="text-left  ">
-                              {result.location}
-                              {result?.sellerName}
-                              {result?.verified}
+                              <p>
+                                <b>Location:</b> {result.location}
+                              </p>
+                              <p className="flex items-center">
+                                <b>Name: </b> {result?.sellerInfo[0]?.user}{" "}
+                                {result?.sellerInfo[0]?.verify && (
+                                  <FaCheckCircle
+                                    className="text-sky-500 ml-2"
+                                    title="Seller Verified"
+                                  />
+                                )}
+                              </p>
+                              <p>
+                                <b>Email:</b> {result.sellerInfo[0]?.email}
+                              </p>
                             </div>
                           </td>
                           <td className="px-2 py-4 whitespace-nowrap">

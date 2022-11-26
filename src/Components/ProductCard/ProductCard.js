@@ -107,11 +107,15 @@ const ProductCard = ({ product }) => {
       </div>
       {showModal && (
         <ModalBook title={`Book ${productName}  `} setShowModal={setShowModal}>
-          <h1> {productName}</h1>
-          <h1> {user.email}</h1>
-          <h1> {location}</h1>
-
-          {}
+          {user?.uid ? (
+            <>
+              <h1> {productName}</h1>
+              <h1> {user.email}</h1>
+              <h1> {location}</h1>
+            </>
+          ) : (
+            <p>Please Login First</p>
+          )}
         </ModalBook>
       )}
     </>

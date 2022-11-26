@@ -84,7 +84,10 @@ const AllUser = () => {
                       </td>
                       <td className="p-2 whitespace-nowrap">
                         <div className="text-left flex items-center gap-1 font-semibold">
-                          {user?.user} {user?.verify && <FaCheckCircle />}
+                          {user?.user}{" "}
+                          {user?.verify && (
+                            <FaCheckCircle className="text-sky-500" />
+                          )}
                         </div>
                       </td>
                       <td className="p-2 whitespace-nowrap">

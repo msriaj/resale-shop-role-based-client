@@ -61,47 +61,79 @@ export const routes = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: (
-      <PrivateRoute>
-        <DashboardLayout />
-      </PrivateRoute>
-    ),
+    element: <DashboardLayout />,
     children: [
       {
         path: "/dashboard/overview",
-        element: <Overview />,
+        element: (
+          <PrivateRoute permission={["admin"]}>
+            <Overview />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/add-product",
-        element: <AddProduct />,
+        element: (
+          <PrivateRoute permission={["admin", "seller"]}>
+            <AddProduct />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/all-product",
-        element: <AllProduct />,
+        element: (
+          <PrivateRoute permission={["admin"]}>
+            <AllProduct />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/my-buyers/",
-        element: <MyBuyers />,
+        element: (
+          <PrivateRoute permission={["admin", "seller"]}>
+            <MyBuyers />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/add-category/",
-        element: <AddCategory />,
+        element: (
+          <PrivateRoute permission={["admin"]}>
+            <AddCategory />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/all-user/",
-        element: <AllUser />,
+        element: (
+          <PrivateRoute permission={["admin"]}>
+            <AllUser />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/my-orders/",
-        element: <p>my-orders/</p>,
+        element: (
+          <PrivateRoute permission={["admin", "buyers"]}>
+            <p>my-orders/</p>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/my-wishlist/",
-        element: <WishList />,
+        element: (
+          <PrivateRoute permission={["admin", "buyers"]}>
+            <WishList />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/my-products/",
-        element: <MyProducts />,
+        element: (
+          <PrivateRoute permission={["admin", "seller"]}>
+            <MyProducts />
+          </PrivateRoute>
+        ),
       },
     ],
   },

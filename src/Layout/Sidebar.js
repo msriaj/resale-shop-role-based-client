@@ -10,12 +10,16 @@ import {
   FaUserAltSlash,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 export const Sidebar = ({ showSidebar }) => {
+  const { role } = useAuth();
+  console.log(role);
   const menuData = [
     {
       path: "/overview/",
       title: "Overview",
+      permission: ["admin"],
       icon: (
         <FaChartPie className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
       ),
@@ -23,6 +27,7 @@ export const Sidebar = ({ showSidebar }) => {
     {
       path: "/add-product/",
       title: "Add Products",
+      permission: ["seller", "admin"],
       icon: (
         <FaShoppingBag className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
       ),
@@ -30,6 +35,7 @@ export const Sidebar = ({ showSidebar }) => {
     {
       path: "/all-product/",
       title: "All Product",
+      permission: ["admin"],
       icon: (
         <FaStore className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
       ),
@@ -37,6 +43,7 @@ export const Sidebar = ({ showSidebar }) => {
     {
       path: "/my-buyers/",
       title: "My Buyers",
+      permission: ["admin", "seller"],
       icon: (
         <FaUserAltSlash className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
       ),
@@ -44,6 +51,7 @@ export const Sidebar = ({ showSidebar }) => {
     {
       path: "/all-user/",
       title: "All User",
+      permission: ["admin"],
       icon: (
         <FaUserAlt className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
       ),
@@ -51,6 +59,7 @@ export const Sidebar = ({ showSidebar }) => {
     {
       path: "/my-orders/",
       title: "My Orders",
+      permission: ["admin", "buyers"],
       icon: (
         <FaCartArrowDown className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
       ),
@@ -58,6 +67,7 @@ export const Sidebar = ({ showSidebar }) => {
     {
       path: "/my-wishlist/",
       title: "Wishlist",
+      permission: ["admin", "buyers"],
       icon: (
         <FaHeart className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
       ),
@@ -65,6 +75,7 @@ export const Sidebar = ({ showSidebar }) => {
     {
       path: "/add-category/",
       title: "Add Category",
+      permission: ["admin"],
       icon: (
         <FaFolder className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
       ),
@@ -72,6 +83,7 @@ export const Sidebar = ({ showSidebar }) => {
     {
       path: "/my-products/",
       title: "My Products",
+      permission: ["admin", "seller"],
       icon: (
         <FaFolder className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
       ),
@@ -89,20 +101,21 @@ export const Sidebar = ({ showSidebar }) => {
         <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
           <div className="flex-1 px-3 bg-white divide-y space-y-1">
             <ul className=" pb-2">
-              {menuData.map((menuitem, idx) => (
-                <li key={idx}>
-                  <NavLink
-                    to={`/dashboard${menuitem.path}`}
-                    className={(isActive) =>
-                      " text-base mt-5 text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group" +
-                      (!isActive ? " bg-gray-500 " : "  ")
-                    }
-                  >
-                    {menuitem.icon}
-                    <span className="ml-3">{menuitem.title}</span>
-                  </NavLink>
-                </li>
-              ))}
+              {role &&
+                menuData.map(
+                  (menuitem, idx) =>
+                    menuitem?.permission?.includes(role) && (
+                      <li key={idx}>
+                        <NavLink
+                          to={`/dashboard${menuitem.path}`}
+                          className="text-base mt-5 text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group"
+                        >
+                          {menuitem.icon}
+                          <span className="ml-3">{menuitem.title}</span>
+                        </NavLink>
+                      </li>
+                    )
+                )}
             </ul>
           </div>
         </div>

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { FaBars, FaMobile, FaSignOutAlt } from "react-icons/fa";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { notify } from "../Components/Utility/notify";
 import { useAuth } from "../hooks/useAuth";
 import { Sidebar } from "./Sidebar";
 
 const DashboardLayout = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const { role, logOut } = useAuth();
+  const { user, logOut } = useAuth();
 
+  const navigate = useNavigate();
   return (
     <div>
       <div>
@@ -35,12 +36,13 @@ const DashboardLayout = () => {
               </div>
               <div className="flex items-center">
                 <p className="hidden md:block">
-                  Welcome , <b>Riaj</b>
+                  Welcome , <b>{user?.displayName}</b>
                 </p>
                 <button className=" md:ml-5 rounded p-2 text-gray-400">
                   <FaSignOutAlt
                     onClick={() => {
                       logOut();
+                      navigate("/login");
                       notify("Logout Successfully !!!", "error");
                     }}
                     title="Logout"

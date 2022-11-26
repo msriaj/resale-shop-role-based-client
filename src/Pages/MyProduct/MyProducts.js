@@ -82,7 +82,7 @@ const MyProducts = () => {
                       {data.map((result) => (
                         <tr key={result._id} className="hover:bg-gray-100 ">
                           <td className="px-2 py-4 whitespace-nowrap">
-                            <div className=" ">
+                            <div className="flex items-center ">
                               <img
                                 className="w-12 h-12 rounded shadow mr-2 hidden md:block"
                                 src={result.productImage}
@@ -97,10 +97,7 @@ const MyProducts = () => {
                             <div className="text-center flex flex-col items-center ">
                               <div className="flex">
                                 <span className=" p-1 font-semibold">
-                                  {result.resalePrice}{" "}
-                                  <span className="text-gray-400">
-                                    ({result.originalPrice})
-                                  </span>
+                                  {result.resalePrice}
                                 </span>
                               </div>
                             </div>
@@ -108,17 +105,14 @@ const MyProducts = () => {
                           <td className="px-2 py-4 whitespace-nowrap">
                             <div className="text-left text-gray-600 ">
                               <p>
-                                <b>Category:</b> {result.category}{" "}
+                                <b>Original Price:</b> {result.originalPrice}
                               </p>
                               <p>
                                 <b>Condition:</b> {result.condition}
                               </p>
                               <p>
-                                <b>useDuration:</b> {result.useDuration}
+                                <b>Use Duration:</b> {result.useDuration}
                               </p>
-                              {/* <p>
-                                <b>Description:</b> {result.description}
-                              </p> */}
                             </div>
                           </td>
 

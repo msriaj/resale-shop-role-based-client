@@ -7,6 +7,7 @@ import AllProduct from "../Pages/AllProduct/AllProduct";
 import AllUser from "../Pages/AllUser/AllUser";
 import Error from "../Pages/Error/Error";
 import Home from "../Pages/Home/Home";
+import LocationWise from "../Pages/LocationWise/LocationWise";
 import Login from "../Pages/Login/Login";
 import MyBuyers from "../Pages/MyBuyers/MyBuyers";
 import MyProducts from "../Pages/MyProduct/MyProducts";
@@ -42,7 +43,19 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/category/:id",
-        element: <PostList />,
+        element: (
+          <PrivateRoute>
+            <PostList />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/location/:id",
+        element: (
+          <PrivateRoute>
+            <LocationWise />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/product-details/:id",

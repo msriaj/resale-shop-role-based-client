@@ -106,13 +106,12 @@ const AddCategory = () => {
 
           <div className="flex items-center justify-center w-full">
             <label
-              for="dropzone-file"
+              htmlFor="dropzone-file"
               className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-400 border-dashed rounded-lg cursor-pointer bg-gray-100 hover:bg-white"
             >
               <div className="flex flex-col overflow-hidden items-center justify-center pt-5 pb-6">
                 {img ? (
                   <div className="p-5">
-                    {" "}
                     <img src={img} className="h-48" alt="s" />
                   </div>
                 ) : (

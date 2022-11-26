@@ -1,15 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { FaCloudUploadAlt } from "react-icons/fa";
 import Input from "../../Components/Input/Input";
 import Loading from "../../Components/Utility/Loading";
 import { notify } from "../../Components/Utility/notify";
 import { serverUrl } from "../../Context/AuthContext";
 import { useAuth } from "../../hooks/useAuth";
 import { Axios } from "../../services/axiosInstance";
-import { districts } from "./district";
+import { divisions } from "./district";
 
 const AddProduct = () => {
   const { user, userID } = useAuth();
+  const [img, setImg] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
 
   const { data, isLoading } = useQuery(["categories"], () =>
@@ -71,6 +73,13 @@ const AddProduct = () => {
 
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
+    if (event.target.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.addEventListener("load", () => {
+        setImg(reader.result);
+      });
+    }
   };
 
   if (isLoading) {
@@ -79,7 +88,7 @@ const AddProduct = () => {
 
   return (
     <div>
-      <div className="mt-5 md:col-span-2 md:mt-0">
+      <div className="mt-5 mb-12 md:col-span-2 md:mt-0">
         <form onSubmit={submitHandler}>
           <div className="shadow sm:overflow-hidden sm:rounded-md">
             <div className=" bg-white px-4 py-5 sm:p-6">
@@ -151,13 +160,13 @@ const AddProduct = () => {
                             <option className="w-full ">
                               Select Your Location
                             </option>
-                            {districts.map((district) => (
+                            {divisions.map((division) => (
                               <option
-                                key={district.id}
+                                key={division.id}
                                 className="w-full"
-                                value={district.name}
+                                value={division.name}
                               >
-                                {district.name}
+                                {division.name}
                               </option>
                             ))}
                           </select>
@@ -209,14 +218,41 @@ const AddProduct = () => {
                 <label className="block text-sm font-medium text-gray-700 mt-5">
                   Product Images
                 </label>
-
-                <input type="file" onChange={handleFileSelect} />
+                <label
+                  htmlFor="dropzone-file"
+                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-400 border-dashed rounded-lg cursor-pointer bg-gray-100 hover:bg-white"
+                >
+                  <div className="flex flex-col overflow-hidden items-center justify-center pt-5 pb-6">
+                    {img ? (
+                      <div className="p-5">
+                        <img src={img} className="h-48" alt="s" />
+                      </div>
+                    ) : (
+                      <>
+                        <FaCloudUploadAlt className="text-4xl text-gray-600" />
+                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                          <span className="font-semibold">Click to upload</span>{" "}
+                          or drag and drop
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          SVG, PNG, JPG or GIF (MAX. 800x400px)
+                        </p>
+                      </>
+                    )}
+                  </div>
+                  <input
+                    id="dropzone-file"
+                    type="file"
+                    onChange={handleFileSelect}
+                    hidden
+                  />
+                </label>
               </div>
             </div>
             <div className="px-4 py-3 text-right sm:px-6">
               <button
                 type="submit"
-                className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="block w-full md:w-auto md:inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Add Product
               </button>

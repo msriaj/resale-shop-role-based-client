@@ -7,10 +7,10 @@ import Loading from "../../Components/Utility/Loading";
 import NotFound from "../../Components/Utility/NotFound";
 import { Axios } from "../../services/axiosInstance";
 
-const PostList = () => {
+const LocationWise = () => {
   const { id } = useParams();
   const { data, isLoading } = useQuery([{ id }], () =>
-    Axios.get(`/api/get-products/${id}`)
+    Axios.get(`/api/location/${id}`)
   );
   const newData = data?.data;
 
@@ -18,7 +18,6 @@ const PostList = () => {
     return <Loading />;
   }
   if (!data || !newData.length) return <NotFound />;
-
   return (
     <div className="">
       <div className="mx-5 md:w-10/12 md:mx-auto ">
@@ -49,4 +48,4 @@ const PostList = () => {
   );
 };
 
-export default PostList;
+export default LocationWise;

@@ -63,7 +63,7 @@ const DashboardLayout = () => {
           >
             <Sidebar showSidebar={showSidebar} />
             <main>
-              <div className="pt-6 px-4">
+              <div className="pt-6 px-4 md:min-h-screen">
                 <Outlet />
               </div>
             </main>

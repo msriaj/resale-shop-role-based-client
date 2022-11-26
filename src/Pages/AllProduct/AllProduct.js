@@ -27,6 +27,7 @@ const AllProduct = () => {
       notify("Delete Success!!!", "info");
     });
   };
+
   if (!data.length) {
     return (
       <p className="text-center py-20 bg-white shadow border  rounded overflow-hidden font-semibold text-red-300">
@@ -34,6 +35,7 @@ const AllProduct = () => {
       </p>
     );
   }
+
   return (
     <div>
       <div className="  md:mx-0">

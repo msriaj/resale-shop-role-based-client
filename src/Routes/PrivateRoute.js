@@ -11,15 +11,16 @@ const PrivateRoute = ({ permission, children }) => {
   if (loading) {
     return <Loading />;
   }
-
-  if (user.uid) {
-    if (permission?.includes(role)) {
-      return children;
-    } else {
+  console.log(permission);
+  if (permission) {
+    if (!permission?.includes(role)) {
       return <p>You Don't Have Access to this Page</p>;
     }
   }
 
+  if (user?.uid) {
+    return children;
+  }
   return <Navigate to={"/login"} state={{ from: location }} replace></Navigate>;
 };
 

@@ -68,12 +68,14 @@ const UserContext = ({ children }) => {
 
   useEffect(() => {
     if (user) {
+      setLoading(true);
       axios
         .get(`${serverUrl}/api/check-role?email=${user?.email}`)
         .then((result) => {
           setRole(result.data.role);
           console.log(result.data);
           setUserID(result.data._id);
+          setLoading(false);
         });
     }
   }, [user]);

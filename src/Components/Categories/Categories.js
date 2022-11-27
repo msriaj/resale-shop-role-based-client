@@ -13,15 +13,15 @@ const Categories = () => {
   }
   const newData = data?.slice(0, 5);
   return (
-    <div className="bg-[#F5F8FB]">
+    <div className="bg-[#E6F2FE]">
       <div className="md:w-10/12 mx-auto py-12">
         <h2 className="text-2xl mt-5 text-center text-[#222222] font-semibold">
-          Boost Your Search With Trending Categories
+          Trending Categories
         </h2>
         <p className="text-center text-gray-400 mb-8">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Boost Your Search With Trending Categories
         </p>
-        <div className="grid mx-5 gap-5 grid-cols-2  md:grid-cols-5">
+        <div className="grid mx-5 gap-5 grid-cols-1  md:grid-cols-5">
           {newData.map((cat) => (
             <div
               key={cat._id}
@@ -42,7 +42,7 @@ const Categories = () => {
             to="/categories"
             className="border hover:bg-gray-600 bg-white hover:text-white px-4 py-2 "
           >
-            Show All Categories
+            More Categories
           </Link>
         </div>
       </div>

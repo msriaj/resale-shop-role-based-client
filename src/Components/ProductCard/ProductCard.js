@@ -7,11 +7,15 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import { useAuth } from "../../hooks/useAuth";
+import { Axios } from "../../services/axiosInstance";
+import { notify } from "../Utility/notify";
 import ModalBook from "./../../Components/ModalBook/ModalBook";
 
 const ProductCard = ({ product }) => {
-  const { user } = useAuth();
+  const { user, userID } = useAuth();
+
   const {
+    _id,
     productName,
     originalPrice,
     resalePrice,
@@ -22,17 +26,78 @@ const ProductCard = ({ product }) => {
     advertize,
     productImage,
   } = product;
-  const { user: sellerDetails, verify } = sellerInfo[0];
+  const { user: sellerDetails, verify, _id: sellerId } = sellerInfo[0];
   const [showModal, setShowModal] = React.useState(false);
+
+  const wishHandler = () => {
+    Axios.post(`/api/add-wish`, {
+      wishedProduct: _id,
+      sellerId,
+    })
+      .then((result) => {
+        if (result.data.acknowledged) {
+          notify("Product Added To WishList!!");
+          setShowModal(false);
+        }
+      })
+      .catch((err) => {
+        if (err.response.data) {
+          notify(err.response.data, "error");
+        }
+      });
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const productName = form.productName.value;
+    const resalePrice = form.resalePrice.value;
+    const buyerEmail = form.buyerEmail.value;
+    const sellerLocation = form.sellerLocation.value;
+    const buyerPhone = form.buyerPhone.value;
+    const meetLocation = form.meetLocation.value;
+
+    const bookInfo = {
+      productName,
+      resalePrice,
+      sellerLocation,
+      productId: _id,
+      buyerEmail,
+      meetLocation,
+      buyerPhone,
+      buyerId: userID,
+      sellerId: sellerId,
+    };
+
+    try {
+      Axios.post("/api/book-product", bookInfo)
+        .then((result) => {
+          if (result.data.acknowledged) {
+            notify("Booked Added Successfully !!");
+            setShowModal(false);
+            form.reset();
+          }
+        })
+        .catch((err) => {
+          if (err.response.data) {
+            notify(err.response.data, "error");
+          }
+        });
+    } catch (error) {
+      console.error(error.response);
+    }
+  };
+
   return (
     <>
-      <div className=" border p-5 overflow-hidden hover:border hover:border-sky-500 hover:shadow-lg">
+      <div className=" border p-5 bg-white  text-sm overflow-hidden hover:border  hover:shadow-xl">
         <div className="relative">
           <div className="bg-gray-50 p-5  overflow-hidden">
             <img
               src={productImage}
               alt=""
-              className="mx-auto hover:scale-110 transition-all duration-500"
+              className="mx-auto h-52 hover:scale-110 transition-all duration-500"
             />
           </div>
           {advertize && (
@@ -42,11 +107,11 @@ const ProductCard = ({ product }) => {
           )}
         </div>
         <div className="mt-3 text-gray-400">
-          <h3 className="font-bold text-2xl text-gray-600 hover:text-[#F9B127]">
+          <h3 className="font-semibold text-xl text-gray-600 hover:text-[#F9B127]">
             {productName}
           </h3>
           <div className="flex justify-between items-center">
-            <p className="text-xl font-semibold text-red-400 mt-1">
+            <p className="text-lg font-semibold text-red-400 mt-1">
               <span title="Resale Price">TK {resalePrice}</span>
               <span
                 title="Ordinal Price"
@@ -57,19 +122,20 @@ const ProductCard = ({ product }) => {
             </p>
             <p>
               <span className="flex items-center gap-1">
-                <FaCalendar /> {createdAt.slice(0, 10)}
+                <FaCalendar className="text-gray-300" />{" "}
+                {createdAt.slice(0, 10)}
               </span>
             </p>
           </div>
 
           <p className="flex justify-between mt-1">
             <span className="flex items-center gap-1">
-              <FaMapMarkerAlt />
+              <FaMapMarkerAlt className="text-gray-300" />
               {location}
             </span>
 
             <span className="flex items-center gap-1">
-              <FaClock />
+              <FaClock className="text-gray-300" />
               {useDuration} Years Used
             </span>
           </p>
@@ -80,7 +146,7 @@ const ProductCard = ({ product }) => {
                 {sellerDetails}
                 {verify && (
                   <FaCheckCircle
-                    className="text-[#F9B127]"
+                    className="text-sky-500"
                     title="Seller Verified"
                   />
                 )}
@@ -88,7 +154,12 @@ const ProductCard = ({ product }) => {
             </span>
           </p>
           <div className="flex justify-between items-center mt-4">
-            <p className="flex gap-1 border p-2   hover:bg-gray-600 hover:text-white items-center">
+            <p
+              onClick={() => {
+                wishHandler();
+              }}
+              className="flex gap-1 border p-2    hover:bg-gray-600 hover:text-white items-center"
+            >
               <FaHeart className="text-xl" />{" "}
               <span className=" font-medium text-sm uppercase cursor-pointer">
                 Add to wishlist
@@ -108,13 +179,14 @@ const ProductCard = ({ product }) => {
       {showModal && (
         <ModalBook title={`Book ${productName}  `} setShowModal={setShowModal}>
           {user?.uid ? (
-            <form className="text-sm">
+            <form onSubmit={submitHandler} className="text-sm">
               <div className="mb-3">
                 <p className="text-gray-400 font-semibold">Product Name</p>
 
                 <input
                   className="border w-full shadow p-2 bg-gray-300"
                   type="text"
+                  name="productName"
                   defaultValue={productName}
                   disabled
                 />
@@ -125,6 +197,7 @@ const ProductCard = ({ product }) => {
                 <input
                   className="border w-full shadow p-2 bg-gray-300"
                   type="text"
+                  name="resalePrice"
                   defaultValue={resalePrice}
                   disabled
                 />
@@ -135,6 +208,7 @@ const ProductCard = ({ product }) => {
                 <input
                   className="border w-full shadow p-2 bg-gray-300"
                   type="text"
+                  name="buyerEmail"
                   defaultValue={user.email}
                   disabled
                 />
@@ -145,6 +219,7 @@ const ProductCard = ({ product }) => {
                 <input
                   className="border w-full shadow p-2 bg-gray-300"
                   type="text"
+                  name="sellerLocation"
                   defaultValue={location}
                   disabled
                 />
@@ -154,7 +229,8 @@ const ProductCard = ({ product }) => {
                 <p className="text-gray-400 font-semibold">Your Phone Number</p>
                 <input
                   className="border w-full shadow p-2"
-                  type="text"
+                  type="number"
+                  name="buyerPhone"
                   required
                 />
               </div>
@@ -164,6 +240,7 @@ const ProductCard = ({ product }) => {
                 <input
                   className="border w-full shadow p-2"
                   type="text"
+                  name="meetLocation"
                   required
                 />
               </div>

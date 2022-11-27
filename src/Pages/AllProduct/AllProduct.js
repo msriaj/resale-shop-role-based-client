@@ -121,6 +121,9 @@ const AllProduct = () => {
                               <p>
                                 <b>Location:</b> {result.location}
                               </p>
+                              <p>
+                                <b>Seller Phone:</b> {result.sellerPhone}
+                              </p>
                               <p className="flex items-center">
                                 <b>Name: </b> {result?.sellerInfo[0]?.user}{" "}
                                 {result?.sellerInfo[0]?.verify && (

@@ -16,15 +16,15 @@ const Advertize = () => {
   if (!data || !newData.length) return "";
 
   return (
-    <div className="">
+    <div className="bg-[#F2F3F7] py-5">
       <div className="mx-5 md:w-10/12 md:mx-auto ">
         <div className="flex flex-col md:flex-row mt-8 justify-between mb-5">
           <div>
             <h2 className="text-2xl mt-5 text-left text-[#222222] font-semibold">
-              Resent advertizes
+              Recent Advertizes
             </h2>
             <p className="text-center text-gray-400 mb-8">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Hare Are Recent Advertizes Published By Verified User
             </p>
           </div>
           <div className="flex relative  rounded-xl items-center">

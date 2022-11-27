@@ -6,8 +6,10 @@ import {
   FaHeart,
   FaShoppingBag,
   FaStore,
-  FaUserAlt,
   FaUserAltSlash,
+  FaUserFriends,
+  FaUsers,
+  FaUserTie,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
@@ -19,7 +21,7 @@ export const Sidebar = ({ showSidebar }) => {
     {
       path: "/overview/",
       title: "Overview",
-      permission: ["admin"],
+      permission: ["admin", "seller", "buyers"],
       icon: (
         <FaChartPie className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
       ),
@@ -53,7 +55,23 @@ export const Sidebar = ({ showSidebar }) => {
       title: "All User",
       permission: ["admin"],
       icon: (
-        <FaUserAlt className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
+        <FaUsers className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
+      ),
+    },
+    {
+      path: "/all-seller/",
+      title: "All Seller",
+      permission: ["admin"],
+      icon: (
+        <FaUserTie className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
+      ),
+    },
+    {
+      path: "/all-buyer/",
+      title: "All Buyer",
+      permission: ["admin"],
+      icon: (
+        <FaUserFriends className="w-5 h-5 text-gray-500 group-hover:text-gray-900 transition duration-75" />
       ),
     },
     {

@@ -4,7 +4,7 @@ const ModalBook = ({ setShowModal, title, children }) => {
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-        <div className="relative w-auto my-6 mx-auto ">
+        <div className="relative md:w-[400px] my-6 mx-auto ">
           <div className="border shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             <div className="flex items-start justify-between   border-b border-solid border-slate-200 rounded-t">
               <h3 className="text-sm text-center font-semibold px-5 mt-2">

@@ -3,13 +3,16 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import Main from "../Layout/Main";
 import AddCategory from "../Pages/AddCategory/AddCategory";
 import AddProduct from "../Pages/AddProduct/AddProduct";
+import AllBuyers from "../Pages/AllBuyers/AllBuyers";
 import AllProduct from "../Pages/AllProduct/AllProduct";
+import AllSeller from "../Pages/AllSeller/AllSeller";
 import AllUser from "../Pages/AllUser/AllUser";
 import Error from "../Pages/Error/Error";
 import Home from "../Pages/Home/Home";
 import LocationWise from "../Pages/LocationWise/LocationWise";
 import Login from "../Pages/Login/Login";
 import MyBuyers from "../Pages/MyBuyers/MyBuyers";
+import MyOrders from "../Pages/MyOrders/MyOrders";
 import MyProducts from "../Pages/MyProduct/MyProducts";
 import Overview from "../Pages/Overview/Overview";
 import PostList from "../Pages/PostList/PostList";
@@ -79,6 +82,14 @@ export const routes = createBrowserRouter([
       {
         path: "/dashboard/overview",
         element: (
+          <PrivateRoute permission={["admin", "seller", "buyers"]}>
+            <Overview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/overview",
+        element: (
           <PrivateRoute permission={["admin"]}>
             <Overview />
           </PrivateRoute>
@@ -125,10 +136,26 @@ export const routes = createBrowserRouter([
         ),
       },
       {
+        path: "/dashboard/all-seller/",
+        element: (
+          <PrivateRoute permission={["admin"]}>
+            <AllSeller />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all-buyer/",
+        element: (
+          <PrivateRoute permission={["admin"]}>
+            <AllBuyers />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/dashboard/my-orders/",
         element: (
           <PrivateRoute permission={["admin", "buyers"]}>
-            <p>my-orders/</p>
+            <MyOrders />
           </PrivateRoute>
         ),
       },

@@ -1,8 +1,27 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Loading from "../../Components/Utility/Loading";
+import { Axios } from "../../services/axiosInstance";
 
 const WishList = () => {
+  const { data, isLoading, refetch } = useQuery(["my-orders"], () =>
+    Axios.get(`/api/my-wish-list`).then((result) => result.data)
+  );
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (!data.length) {
+    return (
+      <p className="text-center py-20 bg-white shadow border  rounded overflow-hidden font-semibold text-red-300">
+        No Product Found
+      </p>
+    );
+  }
+
   return (
     <div>
       <div>
@@ -21,17 +40,12 @@ const WishList = () => {
                         <tr>
                           <th className="p-2 whitespace-nowrap">
                             <div className="font-semibold text-left">
-                              Service Details
+                              Product Details
                             </div>
                           </th>
                           <th className="p-2 whitespace-nowrap">
-                            <div className="font-semibold text-center">
-                              Review
-                            </div>
-                          </th>
-                          <th className="p-2 whitespace-nowrap">
-                            <div className="font-semibold text-center">
-                              Time
+                            <div className="font-semibold text-left">
+                              Seller Info
                             </div>
                           </th>
                           <th className="p-2 whitespace-nowrap">
@@ -42,39 +56,55 @@ const WishList = () => {
                         </tr>
                       </thead>
                       <tbody className="text-sm divide-y divide-gray-100">
-                        <tr className="hover:bg-gray-100 ">
-                          <td className="px-2 py-4 whitespace-nowrap">
-                            <div className="flex items-center">
-                              <img
-                                className="w-12 h-12 rounded shadow mr-2 hidden md:block"
-                                src="/"
-                                alt=""
-                              />
-                              <div className="font-medium text-gray-800">
-                                <Link to="/">Name</Link>
+                        {data?.map((product) => (
+                          <tr key={product._id} className="hover:bg-gray-100 ">
+                            <td className="px-2 py-4 whitespace-nowrap">
+                              <div className="flex items-center">
+                                <img
+                                  className="w-12 h-12 rounded shadow mr-2 hidden md:block"
+                                  src={product.productDetails[0].productImage}
+                                  alt=""
+                                />
+                                <div className="font-medium text-gray-800">
+                                  <Link to="/">
+                                    {product.productDetails[0].productName}
+                                  </Link>
+                                  {product.productDetails[0].resalePrice}
+                                </div>
                               </div>
-                            </div>
-                          </td>
-                          <td className="px-2 py-4 whitespace-nowrap">
-                            <div className="text-center flex flex-col items-center ">
-                              <div className="flex">
-                                <span className=" p-1 font-semibold">sas</span>
+                            </td>
+                            <td className="  py-4 whitespace-nowrap">
+                              <div className="text-gray-500 flex flex-col items-center text-left ">
+                                <div className=" p-1 font-semibold">
+                                  <p>
+                                    <b>Name </b>:{" "}
+                                    {product.sellerDetails[0].user}
+                                  </p>
+                                  <p>
+                                    <b>Phone </b>:{" "}
+                                    {product?.productDetails[0].sellerPhone}
+                                  </p>
+                                  <p>
+                                    <b>Email </b>:{" "}
+                                    {product.sellerDetails[0].email}
+                                  </p>
+                                </div>
                               </div>
-                            </div>
-                          </td>
-                          <td className="px-2 py-4 whitespace-nowrap">
-                            <div className="text-left  ">date</div>
-                          </td>
-                          <td className="px-2 py-4 whitespace-nowrap">
-                            <span className="flex   justify-center gap-3">
-                              <Link to="/">
-                                <FaEdit className="text-green-600 cursor-pointer" />
-                              </Link>
+                            </td>
+                            <td className="px-2 py-4 whitespace-nowrap">
+                              <div className="text-left  ">date</div>
+                            </td>
+                            <td className="px-2 py-4 whitespace-nowrap">
+                              <span className="flex   justify-center gap-3">
+                                <Link to="/">
+                                  <FaEdit className="text-green-600 cursor-pointer" />
+                                </Link>
 
-                              <FaTrash className="text-red-600 cursor-pointer" />
-                            </span>
-                          </td>
-                        </tr>
+                                <FaTrash className="text-red-600 cursor-pointer" />
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>

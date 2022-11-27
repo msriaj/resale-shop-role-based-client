@@ -16,7 +16,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage.js";
 import { app } from "./firebase.config.js";
 
 export const AuthContext = createContext();
-export const serverUrl = "http://localhost:5000";
+export const serverUrl = "https://next-mobile-server-msriaj.vercel.app";
 const auth = getAuth(app);
 
 const googleProvider = new GoogleAuthProvider();

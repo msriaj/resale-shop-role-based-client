@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import Input from "../../Components/Input/Input";
 import Loading from "../../Components/Utility/Loading";
 import { notify } from "../../Components/Utility/notify";
@@ -13,7 +14,7 @@ const AddProduct = () => {
   const { user, userID } = useAuth();
   const [img, setImg] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-
+  const navigate = useNavigate();
   const { data, isLoading } = useQuery(["categories"], () =>
     Axios.get("/api/categories").then((result) => result.data)
   );
@@ -29,6 +30,7 @@ const AddProduct = () => {
     const condition = form.condition.value;
     const description = form.description.value;
     const useDuration = form.useDuration.value;
+    const sellerPhone = form.sellerPhone.value;
 
     const formData = new FormData();
 
@@ -54,15 +56,16 @@ const AddProduct = () => {
           condition,
           description,
           useDuration,
+          sellerPhone: sellerPhone,
           productImage: response?.data?.url,
           email: user.email,
           userID: userID,
         };
-        console.log(productInfo);
         Axios.post(`${serverUrl}/api/add-product`, productInfo)
           .then((result) => {
-            // form.reset();
+            form.reset();
             notify("Product Published Successfully !!");
+            navigate("/dashboard/my-products/");
           })
           .catch((err) => console.log(err));
       }
@@ -99,7 +102,7 @@ const AddProduct = () => {
                   name="productName"
                   type="text"
                 />
-                <div className="grid grid-cols-2 gap-5">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
                   <Input
                     title="Resale Price"
                     placeholder="Resale Price"
@@ -112,6 +115,14 @@ const AddProduct = () => {
                     name="originalPrice"
                     type="number"
                   />
+                  <div className="col-span-2 md:col-span-1">
+                    <Input
+                      title="Seller Phone"
+                      placeholder="Phone Number "
+                      name="sellerPhone"
+                      type="number"
+                    />
+                  </div>
                 </div>
                 <div className="grid md:grid-cols-3 gap-5">
                   <div>

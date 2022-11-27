@@ -6,7 +6,7 @@ import Loading from "../../Components/Utility/Loading";
 import { Axios } from "../../services/axiosInstance";
 
 const WishList = () => {
-  const { data, isLoading, refetch } = useQuery(["my-orders"], () =>
+  const { data, isLoading } = useQuery(["my-orders"], () =>
     Axios.get(`/api/my-wish-list`).then((result) => result.data)
   );
 
@@ -30,7 +30,7 @@ const WishList = () => {
             <div className="flex flex-col justify-center ">
               <div className="w-full bg-white my-12 mx-auto rounded-sm border  ">
                 <header className="px-5 py-4 border-b border-gray-100">
-                  <h2 className="font-semibold text-gray-800">My Reviews</h2>
+                  <h2 className="font-semibold text-gray-800">WishList</h2>
                 </header>
 
                 <div className="p-3">
@@ -62,14 +62,14 @@ const WishList = () => {
                               <div className="flex items-center">
                                 <img
                                   className="w-12 h-12 rounded shadow mr-2 hidden md:block"
-                                  src={product.productDetails[0].productImage}
+                                  src={product?.productDetails[0]?.productImage}
                                   alt=""
                                 />
                                 <div className="font-medium text-gray-800">
                                   <Link to="/">
-                                    {product.productDetails[0].productName}
+                                    {product?.productDetails[0]?.productName}
                                   </Link>
-                                  {product.productDetails[0].resalePrice}
+                                  {product?.productDetails[0]?.resalePrice}
                                 </div>
                               </div>
                             </td>
@@ -78,11 +78,11 @@ const WishList = () => {
                                 <div className=" p-1 font-semibold">
                                   <p>
                                     <b>Name </b>:{" "}
-                                    {product.sellerDetails[0].user}
+                                    {product?.sellerDetails[0].user}
                                   </p>
                                   <p>
                                     <b>Phone </b>:{" "}
-                                    {product?.productDetails[0].sellerPhone}
+                                    {product?.productDetails[0]?.sellerPhone}
                                   </p>
                                   <p>
                                     <b>Email </b>:{" "}

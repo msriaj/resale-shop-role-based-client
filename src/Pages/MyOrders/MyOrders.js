@@ -17,12 +17,6 @@ const MyOrders = () => {
     notify("Order Cancel Success!!!", "info");
     // });
   };
-  const payNow = (id) => {
-    // Axios.get(`/api/advertize-product/${id}`).then((result) => {
-    //   refetch();
-    notify("Pay Button", "info");
-    // });
-  };
 
   if (isLoading) {
     return <Loading />;
@@ -130,13 +124,12 @@ const MyOrders = () => {
                           </td>
                           <td className="px-2 py-4 whitespace-nowrap">
                             <span className="flex   justify-center gap-3">
-                              {!result?.advertize && (
-                                <button
-                                  onClick={() => payNow(result._id)}
-                                  className="bg-sky-400 text-white text-xs rounded p-1 cursor-pointer"
-                                >
-                                  Pay Now
-                                </button>
+                              {!result?.sold && (
+                                <Link to={`/dashboard/payment/${result._id}`}>
+                                  <button className="bg-sky-400 text-white text-xs rounded p-1 cursor-pointer">
+                                    Pay Now
+                                  </button>
+                                </Link>
                               )}
                               <button
                                 className="bg-red-400 text-white text-xs rounded p-1 cursor-pointer"

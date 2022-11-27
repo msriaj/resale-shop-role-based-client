@@ -15,6 +15,7 @@ import MyBuyers from "../Pages/MyBuyers/MyBuyers";
 import MyOrders from "../Pages/MyOrders/MyOrders";
 import MyProducts from "../Pages/MyProduct/MyProducts";
 import Overview from "../Pages/Overview/Overview";
+import Payment from "../Pages/Payment/Payment";
 import PostList from "../Pages/PostList/PostList";
 import Profile from "../Pages/Profile.js/Profile";
 import Register from "../Pages/Register/Register";
@@ -88,14 +89,6 @@ export const routes = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/overview",
-        element: (
-          <PrivateRoute permission={["admin"]}>
-            <Overview />
-          </PrivateRoute>
-        ),
-      },
-      {
         path: "/dashboard/add-product",
         element: (
           <PrivateRoute permission={["admin", "seller"]}>
@@ -135,6 +128,7 @@ export const routes = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+
       {
         path: "/dashboard/all-seller/",
         element: (
@@ -150,6 +144,16 @@ export const routes = createBrowserRouter([
             <AllBuyers />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: (
+          <PrivateRoute>
+            <Payment />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/api/book/${params.id}`),
       },
       {
         path: "/dashboard/my-orders/",

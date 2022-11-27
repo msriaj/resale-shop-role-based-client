@@ -12,7 +12,7 @@ const Payment = () => {
   );
 
   return (
-    <div className=" max-w-[400px] border shadow-lg">
+    <div className="w-full flex justify-center items-center">
       <Elements stripe={stripePromise}>
         <CheckoutForm data={data} />
       </Elements>

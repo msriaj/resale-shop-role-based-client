@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaCartArrowDown,
   FaChartPie,
@@ -12,11 +12,32 @@ import {
   FaUserTie,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import Loading from "../Components/Utility/Loading";
+import { serverUrl } from "../Context/AuthContext";
 import { useAuth } from "../hooks/useAuth";
+import { Axios } from "../services/axiosInstance";
 
 export const Sidebar = ({ showSidebar }) => {
-  const { role } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
+  const [role, setRole] = useState(null);
+
+  useEffect(() => {
+    if (user) {
+      setLoading(true);
+      Axios.get(`${serverUrl}/api/check-role?email=${user?.email}`).then(
+        (result) => {
+          setRole(result.data.role);
+          setLoading(false);
+        }
+      );
+    }
+  }, [user]);
+  // const { role } = useAuth();
   console.log(role);
+  if (loading) {
+    return <Loading />;
+  }
   const menuData = [
     {
       path: "/overview/",

@@ -73,7 +73,7 @@ const UserContext = ({ children }) => {
         .get(`${serverUrl}/api/check-role?email=${user?.email}`)
         .then((result) => {
           setRole(result.data.role);
-          console.log(result.data);
+
           setUserID(result.data._id);
           setLoading(false);
         });

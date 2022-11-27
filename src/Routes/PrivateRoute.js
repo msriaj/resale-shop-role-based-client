@@ -11,7 +11,7 @@ const PrivateRoute = ({ permission, children }) => {
   if (loading) {
     return <Loading />;
   }
-  console.log(permission);
+
   if (permission) {
     if (!permission?.includes(role)) {
       return <p>You Don't Have Access to this Page</p>;

@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Loading from "../../Components/Utility/Loading";
 import { Axios } from "../../services/axiosInstance";
@@ -74,7 +73,7 @@ const WishList = () => {
                               </div>
                             </td>
                             <td className="  py-4 whitespace-nowrap">
-                              <div className="text-gray-500 flex flex-col items-center text-left ">
+                              <div className="text-gray-500 text-left ">
                                 <div className=" p-1 font-semibold">
                                   <p>
                                     <b>Name </b>:{" "}
@@ -91,16 +90,10 @@ const WishList = () => {
                                 </div>
                               </div>
                             </td>
-                            <td className="px-2 py-4 whitespace-nowrap">
-                              <div className="text-left  ">date</div>
-                            </td>
-                            <td className="px-2 py-4 whitespace-nowrap">
-                              <span className="flex   justify-center gap-3">
-                                <Link to="/">
-                                  <FaEdit className="text-green-600 cursor-pointer" />
-                                </Link>
 
-                                <FaTrash className="text-red-600 cursor-pointer" />
+                            <td className="px-2 py-4 whitespace-nowrap">
+                              <span className="flex border bg-green-500 py-2 text-white   justify-center gap-3">
+                                <Link to="/">See Details</Link>
                               </span>
                             </td>
                           </tr>

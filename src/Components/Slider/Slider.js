@@ -13,11 +13,8 @@ const Slider = () => {
                 Before Sold Out Buy <br /> Your Next Phone.
               </h1>
               <p className="md:text-xl">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut{" "}
-                <br />
-                repudiandae natus debitis, labore quasi itaque consectetur quod{" "}
-                <br />
-                sed dignissimos reprehenderit earum, est, id ea facere. <br />
+                Buy and sell with confidence on our website. <br /> with the
+                facility of selling <br /> the phone at a good price
               </p>
               <div className="mt-2">
                 <button className="px-4 py-2 hover:bg-yellow-700 bg-yellow-500">
@@ -40,14 +37,11 @@ const Slider = () => {
           <div className="absolute w-full h-full  flex flex-col justify-center ">
             <section className="text-white p-5 md:p-20">
               <h1 className=" text-2xl md:text-3xl font-extrabold mb-2">
-                Before Sold Out Buy <br /> Your Next Phone.
+                Sell Your Device <br /> At Best Offer
               </h1>
               <p className="md:text-xl">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut{" "}
-                <br />
-                repudiandae natus debitis, labore quasi itaque consectetur quod{" "}
-                <br />
-                sed dignissimos reprehenderit earum, est, id ea facere. <br />
+                Buy and sell with confidence on our website. <br /> with the
+                facility of selling <br /> the phone at a good price
               </p>
               <div className="mt-2">
                 <button className="px-4 py-2 hover:bg-yellow-700 bg-yellow-500">
@@ -73,11 +67,8 @@ const Slider = () => {
                 Before Sold Out Buy <br /> Your Next Phone.
               </h1>
               <p className="md:text-xl">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut{" "}
-                <br />
-                repudiandae natus debitis, labore quasi itaque consectetur quod{" "}
-                <br />
-                sed dignissimos reprehenderit earum, est, id ea facere. <br />
+                Buy and sell with confidence on our website. <br /> with the
+                facility of selling <br /> the phone at a good price
               </p>
               <div className="mt-2">
                 <button className="px-4 py-2 hover:bg-yellow-700 bg-yellow-500">

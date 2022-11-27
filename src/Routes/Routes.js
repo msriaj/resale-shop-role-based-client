@@ -7,6 +7,7 @@ import AllBuyers from "../Pages/AllBuyers/AllBuyers";
 import AllProduct from "../Pages/AllProduct/AllProduct";
 import AllSeller from "../Pages/AllSeller/AllSeller";
 import AllUser from "../Pages/AllUser/AllUser";
+import Blog from "../Pages/Blog/Blog";
 import Error from "../Pages/Error/Error";
 import Home from "../Pages/Home/Home";
 import LocationWise from "../Pages/LocationWise/LocationWise";
@@ -40,6 +41,10 @@ export const routes = createBrowserRouter([
       {
         path: "/reg",
         element: <Register />,
+      },
+      {
+        path: "/blog",
+        element: <Blog />,
       },
       {
         path: "/categories",
@@ -153,7 +158,7 @@ export const routes = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/book/${params.id}`),
+          fetch(`${process.env.REACT_APP_API_URI}/api/book/${params.id}`),
       },
       {
         path: "/dashboard/my-orders/",

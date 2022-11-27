@@ -7,13 +7,14 @@ const CheckoutForm = ({ data }) => {
   const elements = useElements();
   const [cardError, setCardError] = useState("");
   const [success, setSuccess] = useState("");
+
   const [transaction, setTransaction] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   console.log(data);
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("http://localhost:5000/api/create-payment-intent", {
+    fetch(`${process.env.REACT_APP_API_URI}/api/create-payment-intent`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ resalePrice }),
@@ -34,7 +35,7 @@ const CheckoutForm = ({ data }) => {
       return;
     }
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
@@ -96,8 +97,10 @@ const CheckoutForm = ({ data }) => {
         </form>
       ) : (
         <div>
-          <p>{success}</p>
-          <p>{transaction}</p>
+          <div>
+            <p>{success}</p>
+            <p>{transaction}</p>
+          </div>
         </div>
       )}
       <p>{cardError}</p>

@@ -93,7 +93,11 @@ const WishList = () => {
 
                             <td className="px-2 py-4 whitespace-nowrap">
                               <span className="flex border bg-green-500 py-2 text-white   justify-center gap-3">
-                                <Link to="/">See Details</Link>
+                                <Link
+                                  to={`/advertisement/${product?.productDetails[0]?._id}`}
+                                >
+                                  See Details
+                                </Link>
                               </span>
                             </td>
                           </tr>

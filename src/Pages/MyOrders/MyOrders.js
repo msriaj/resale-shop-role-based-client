@@ -2,21 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Link } from "react-router-dom";
 import Loading from "../../Components/Utility/Loading";
-import { notify } from "../../Components/Utility/notify";
 import { Axios } from "../../services/axiosInstance";
 
 const MyOrders = () => {
-  const { data, isLoading, refetch } = useQuery(["my-orders"], () =>
+  const { data, isLoading } = useQuery(["my-orders"], () =>
     Axios.get(`/api/my-orders`).then((result) => result.data)
   );
-
-  const deleteOrder = (id) => {
-    // Axios.get(`/api/delete-product/${id}`).then((result) => {
-    //   refetch();
-    refetch();
-    notify("Order Cancel Success!!!", "info");
-    // });
-  };
 
   if (isLoading) {
     return <Loading />;
@@ -24,11 +15,13 @@ const MyOrders = () => {
 
   if (!data.length) {
     return (
-      <p className="text-center py-20 bg-white shadow border  rounded overflow-hidden font-semibold text-red-300">
+      <p className="text-center py-20 bg-white shadow border   overflow-hidden font-semibold text-red-300">
         No Product Found
       </p>
     );
   }
+
+  console.log(data);
   return (
     <div>
       <div className="  md:mx-0">
@@ -68,6 +61,7 @@ const MyOrders = () => {
                     <tbody className="text-sm divide-y divide-gray-100">
                       {data.map((result) => (
                         <tr key={result._id} className="hover:bg-gray-100 ">
+                          {console.log(result?.productDetails[0]?.status)}
                           <td className="px-2 py-4 whitespace-nowrap">
                             <div className="flex items-center ">
                               <div className="flex items-center text-gray-600">
@@ -111,12 +105,12 @@ const MyOrders = () => {
 
                           <td className="px-2 py-4 whitespace-nowrap">
                             <div className="text-center  ">
-                              {result?.sold ? (
-                                <span className="bg-green-400 ml-2 text-white text-xs rounded p-1 ">
+                              {result?.productDetails[0]?.status === "sold" ? (
+                                <span className="bg-red-400 ml-2 text-white text-xs  p-1 ">
                                   Sold
                                 </span>
                               ) : (
-                                <span className="bg-green-400 ml-2 text-white text-xs rounded p-1 ">
+                                <span className="bg-green-400 ml-2 text-white text-xs  p-1 ">
                                   Available
                                 </span>
                               )}
@@ -124,19 +118,15 @@ const MyOrders = () => {
                           </td>
                           <td className="px-2 py-4 whitespace-nowrap">
                             <span className="flex   justify-center gap-3">
-                              {!result?.sold && (
+                              {!(
+                                result?.productDetails[0]?.status === "sold"
+                              ) && (
                                 <Link to={`/dashboard/payment/${result._id}`}>
-                                  <button className="bg-sky-400 text-white text-xs rounded p-1 cursor-pointer">
+                                  <button className="bg-sky-400 text-white text-xs  p-1 cursor-pointer">
                                     Pay Now
                                   </button>
                                 </Link>
                               )}
-                              <button
-                                className="bg-red-400 text-white text-xs rounded p-1 cursor-pointer"
-                                onClick={() => deleteOrder(result._id)}
-                              >
-                                Cancel
-                              </button>
                             </span>
                           </td>
                         </tr>

@@ -12,10 +12,12 @@ const Payment = () => {
   );
 
   return (
-    <div className="w-full flex justify-center items-center">
-      <Elements stripe={stripePromise}>
-        <CheckoutForm data={data} />
-      </Elements>
+    <div className="w-full  p-12">
+      <div className="bg-white">
+        <Elements stripe={stripePromise}>
+          <CheckoutForm data={data} />
+        </Elements>
+      </div>
     </div>
   );
 };

@@ -6,13 +6,14 @@ import {
   FaHeart,
   FaMapMarkerAlt,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { Axios } from "../../services/axiosInstance";
 import { notify } from "../Utility/notify";
 import ModalBook from "./../../Components/ModalBook/ModalBook";
 
 const ProductCard = ({ product }) => {
-  const { user, userID } = useAuth();
+  const { user, userID, role } = useAuth();
 
   const {
     _id,
@@ -49,7 +50,10 @@ const ProductCard = ({ product }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    if (!role === "buyers") {
+      notify("Your Are Not Buyers");
+      return;
+    }
     const form = e.target;
     const productName = form.productName.value;
     const resalePrice = form.resalePrice.value;
@@ -261,7 +265,25 @@ const ProductCard = ({ product }) => {
               </div>
             </form>
           ) : (
-            <p>Please Login First</p>
+            <div className="p-5">
+              <p>Please Login First</p>
+              <button
+                className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+                onClick={() => setShowModal(false)}
+              >
+                Close
+              </button>
+
+              <Link to="/login">
+                <button
+                  className="text-green-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                >
+                  Login
+                </button>
+              </Link>
+            </div>
           )}
         </ModalBook>
       )}

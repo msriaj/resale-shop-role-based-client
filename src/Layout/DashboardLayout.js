@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaBars, FaMobile, FaSignOutAlt } from "react-icons/fa";
+import { FaBars, FaSignOutAlt } from "react-icons/fa";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { notify } from "../Components/Utility/notify";
 import { useAuth } from "../hooks/useAuth";
@@ -28,9 +28,8 @@ const DashboardLayout = () => {
                 </button>
 
                 <Link to="/" className="flex items-center">
-                  <FaMobile />
                   <span className="self-center whitespace-nowrap text-gray-600 font-bold uppercase ">
-                    MobileListBD
+                    NextMobile
                   </span>
                 </Link>
               </div>
@@ -38,7 +37,7 @@ const DashboardLayout = () => {
                 <p className="hidden md:block">
                   Welcome , <b>{user?.displayName}</b>
                 </p>
-                <button className=" md:ml-5 rounded p-2 text-gray-400">
+                <button className=" md:ml-5  p-2 text-gray-400">
                   <FaSignOutAlt
                     onClick={() => {
                       logOut();

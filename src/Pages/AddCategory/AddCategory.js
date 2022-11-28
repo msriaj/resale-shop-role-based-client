@@ -183,7 +183,7 @@ const AddCategory = () => {
                               <td className="px-2 py-4 whitespace-nowrap">
                                 <div className="flex items-center">
                                   <img
-                                    className="h-8 w-24 rounded shadow mr-2 hidden md:block"
+                                    className="h-8 w-24  shadow mr-2 hidden md:block"
                                     src={cat.catImage}
                                     alt=""
                                   />

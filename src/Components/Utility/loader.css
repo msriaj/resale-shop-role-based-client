@@ -6,8 +6,7 @@
   margin: 20px auto;
   position: relative;
   background: currentColor;
-  color: #8b8b8ba9;
-  /* color: yellow; */
+  color: rgba(96, 92, 92, 0.648);
   box-sizing: border-box;
   animation: animloader 0.3s 0.3s linear infinite alternate;
 }

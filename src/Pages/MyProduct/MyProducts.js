@@ -33,7 +33,7 @@ const MyProducts = () => {
 
   if (!data.length) {
     return (
-      <p className="text-center py-20 bg-white shadow border  rounded overflow-hidden font-semibold text-red-300">
+      <p className="text-center py-20 bg-white shadow border   overflow-hidden font-semibold text-red-300">
         No Product Found
       </p>
     );
@@ -84,7 +84,7 @@ const MyProducts = () => {
                           <td className="px-2 py-4 whitespace-nowrap">
                             <div className="flex items-center ">
                               <img
-                                className="w-12 h-12 rounded shadow mr-2 hidden md:block"
+                                className="w-12 h-12  shadow mr-2 hidden md:block"
                                 src={result.productImage}
                                 alt={result.productName}
                               />
@@ -119,12 +119,12 @@ const MyProducts = () => {
                           <td className="px-2 py-4 whitespace-nowrap">
                             <div className="text-center  ">
                               {result?.advertize && (
-                                <span className="border border-sky-400 text-sky-400 text-xs rounded p-1 ">
+                                <span className="border border-sky-400 text-sky-400 text-xs  p-1 ">
                                   Advertized
                                 </span>
                               )}
                               {result?.sold && (
-                                <span className="bg-green-400 ml-2 text-white text-xs rounded p-1 ">
+                                <span className="bg-green-400 ml-2 text-white text-xs  p-1 ">
                                   Sold
                                 </span>
                               )}
@@ -135,13 +135,13 @@ const MyProducts = () => {
                               {!result?.advertize && (
                                 <button
                                   onClick={() => advertizeProduct(result._id)}
-                                  className="bg-sky-400 text-white text-xs rounded p-1 cursor-pointer"
+                                  className="bg-sky-400 text-white text-xs  p-1 cursor-pointer"
                                 >
                                   Advertize Now
                                 </button>
                               )}
                               <button
-                                className="bg-red-400 text-white text-xs rounded p-1 cursor-pointer"
+                                className="bg-red-400 text-white text-xs  p-1 cursor-pointer"
                                 onClick={() => deleteProduct(result._id)}
                               >
                                 Delete

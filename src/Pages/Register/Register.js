@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import Lottie from "lottie-react";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Page } from "../../Components/Page";
+import Loading from "../../Components/Utility/Loading";
 import { notify } from "../../Components/Utility/notify";
 import { useAuth } from "../../hooks/useAuth";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
@@ -16,10 +17,12 @@ const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const nextUrl = location?.state?.from.pathname || "/";
-  const [selectedFile, setSelectedFile] = React.useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [rLoading, setRLoading] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setRLoading(true);
     const formData = new FormData();
     formData.append("image", selectedFile);
 
@@ -58,12 +61,15 @@ const Register = () => {
                 ...newUser.user,
                 displayName: displayName,
               });
-
+              setRLoading(false);
               navigate(nextUrl);
               notify("Register Successfully !!");
             });
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            setRLoading(false);
+            console.log(err);
+          });
       }
     } catch (error) {
       console.error(error);
@@ -74,6 +80,9 @@ const Register = () => {
     setSelectedFile(event.target.files[0]);
   };
 
+  if (rLoading) {
+    return <Loading />;
+  }
   return (
     <Page title="Register">
       <div>

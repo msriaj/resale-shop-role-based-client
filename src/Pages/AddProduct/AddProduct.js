@@ -11,6 +11,7 @@ import { Axios } from "../../services/axiosInstance";
 import { divisions } from "./district";
 
 const AddProduct = () => {
+  const [posting, setPosting] = useState(false);
   const { user, userID } = useAuth();
   const [img, setImg] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
@@ -21,6 +22,7 @@ const AddProduct = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setPosting(true);
     const form = e.target;
     const productName = form.productName.value;
     const originalPrice = form.originalPrice.value;
@@ -64,10 +66,14 @@ const AddProduct = () => {
         Axios.post(`${serverUrl}/api/add-product`, productInfo)
           .then((result) => {
             form.reset();
+            setPosting(false);
             notify("Product Published Successfully !!");
             navigate("/dashboard/my-products/");
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            setPosting(false);
+            console.log(err);
+          });
       }
     } catch (error) {
       console.error(error);
@@ -85,7 +91,7 @@ const AddProduct = () => {
     }
   };
 
-  if (isLoading) {
+  if (isLoading || posting) {
     return <Loading />;
   }
 

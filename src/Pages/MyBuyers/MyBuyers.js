@@ -13,7 +13,7 @@ const MyBuyers = () => {
   console.log(data);
   if (!data.length) {
     return (
-      <p className="text-center py-20 bg-white shadow border  rounded overflow-hidden font-semibold text-red-300">
+      <p className="text-center py-20 bg-white shadow border   overflow-hidden font-semibold text-red-300">
         You Don't Have Any Buyers
       </p>
     );

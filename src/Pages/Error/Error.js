@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useRouteError } from "react-router-dom";
 import { Page } from "../../Components/Page";
-import img from "./404.jpeg";
+import img from "./404.png";
 const Error = () => {
+  const { statusText, status } = useRouteError();
+
   return (
     <Page title="404 Error Page">
       <div className="flex justify-center items-center w-full md:w-9/12 md:mx-auto h-screen ">
@@ -11,15 +13,15 @@ const Error = () => {
         </div>
         <div className="text-center">
           <h1 className="text-6xl font-bold font-mono my-2">
-            AWWW...DONT CRY.
+            Something Went Wrong
           </h1>
           <p className="text-gray-600 text-2xl my-2">
-            It's just a <span className="text-4xl text-red-600">404</span>{" "}
-            Error!{" "}
+            It's just a <span className="text-4xl text-red-600">{status}</span>{" "}
+            {statusText}!{" "}
           </p>
           <p className="text-gray-600 text-2xl my-2"></p>
           <Link
-            className="bg-blue-600 text-white  block my-3  rounded-lg px-5 py-2"
+            className="bg-yellow-500 md:mx-12 text-white  block my-3   px-5 py-2"
             to="/"
           >
             Back To Home.

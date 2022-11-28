@@ -18,7 +18,7 @@ import MyProducts from "../Pages/MyProduct/MyProducts";
 import Overview from "../Pages/Overview/Overview";
 import Payment from "../Pages/Payment/Payment";
 import PostList from "../Pages/PostList/PostList";
-import Profile from "../Pages/Profile.js/Profile";
+
 import Register from "../Pages/Register/Register";
 import WishList from "../Pages/WishList/WishList";
 import PrivateRoute from "./PrivateRoute";
@@ -69,14 +69,6 @@ export const routes = createBrowserRouter([
       {
         path: "/product-details/:id",
         element: <p>product detilas</p>,
-      },
-      {
-        path: "/profile",
-        element: (
-          <PrivateRoute>
-            <Profile />
-          </PrivateRoute>
-        ),
       },
     ],
     errorElement: <Error />,

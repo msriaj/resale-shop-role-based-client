@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -13,10 +12,11 @@ import {
 } from "firebase/auth";
 import React, { createContext, useEffect, useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage.js";
+import { Axios } from "../services/axiosInstance";
 import { app } from "./firebase.config.js";
-
 export const AuthContext = createContext();
 export const serverUrl = "https://next-mobile-server-msriaj.vercel.app";
+// export const serverUrl = "http://localhost:5000";
 const auth = getAuth(app);
 
 const googleProvider = new GoogleAuthProvider();
@@ -29,7 +29,7 @@ const UserContext = ({ children }) => {
   const [role, setRole] = useState(null);
 
   const [userID, setUserID] = useState(null);
-
+  console.log(userID);
   const isAuth = () => {
     return !!userID;
   };
@@ -69,14 +69,13 @@ const UserContext = ({ children }) => {
   useEffect(() => {
     if (user) {
       setLoading(true);
-      axios
-        .get(`${serverUrl}/api/check-role?email=${user?.email}`)
-        .then((result) => {
+      Axios.get(`${serverUrl}/api/check-role?email=${user?.email}`).then(
+        (result) => {
           setRole(result.data.role);
-
           setUserID(result.data._id);
           setLoading(false);
-        });
+        }
+      );
     }
   }, [user]);
 

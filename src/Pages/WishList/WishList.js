@@ -5,7 +5,7 @@ import Loading from "../../Components/Utility/Loading";
 import { Axios } from "../../services/axiosInstance";
 
 const WishList = () => {
-  const { data, isLoading } = useQuery(["my-orders"], () =>
+  const { data, isLoading } = useQuery(["wish-orders"], () =>
     Axios.get(`/api/my-wish-list`).then((result) => result.data)
   );
 
@@ -13,14 +13,14 @@ const WishList = () => {
     return <Loading />;
   }
 
-  if (!data.length) {
+  if (!data?.length) {
     return (
-      <p className="text-center py-20 bg-white shadow border  rounded overflow-hidden font-semibold text-red-300">
+      <p className="text-center py-20 bg-white shadow border   overflow-hidden font-semibold text-red-300">
         No Product Found
       </p>
     );
   }
-
+  console.log(data);
   return (
     <div>
       <div>
@@ -60,7 +60,7 @@ const WishList = () => {
                             <td className="px-2 py-4 whitespace-nowrap">
                               <div className="flex items-center">
                                 <img
-                                  className="w-12 h-12 rounded shadow mr-2 hidden md:block"
+                                  className="w-12 h-12  shadow mr-2 hidden md:block"
                                   src={product?.productDetails[0]?.productImage}
                                   alt=""
                                 />
@@ -77,7 +77,7 @@ const WishList = () => {
                                 <div className=" p-1 font-semibold">
                                   <p>
                                     <b>Name </b>:{" "}
-                                    {product?.sellerDetails[0].user}
+                                    {product?.sellerDetails[0]?.user}
                                   </p>
                                   <p>
                                     <b>Phone </b>:{" "}
@@ -85,7 +85,7 @@ const WishList = () => {
                                   </p>
                                   <p>
                                     <b>Email </b>:{" "}
-                                    {product.sellerDetails[0].email}
+                                    {product?.sellerDetails[0]?.email}
                                   </p>
                                 </div>
                               </div>

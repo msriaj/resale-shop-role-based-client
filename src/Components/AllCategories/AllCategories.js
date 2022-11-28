@@ -17,8 +17,14 @@ const AllCategories = () => {
     return <NotFound />;
   }
   return (
-    <div className="md:w-10/12 mx-auto">
-      <h2 className="text-3xl mb-5">Top Selling Brands</h2>
+    <div className="md:w-10/12 mx-auto pt-12">
+      <div>
+        <h2 className="text-2xl mt-5 text-center text-[#222222] font-semibold">
+          All Categories
+        </h2>
+        <p className="text-center text-gray-400 mb-8">Top Selling Brands</p>
+      </div>
+
       <div className="grid mx-5 gap-5 grid-cols-2  md:grid-cols-5">
         {data.map((cat) => (
           <div

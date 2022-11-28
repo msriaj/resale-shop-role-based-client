@@ -10,11 +10,21 @@ const Map = () => {
           <div className="w-full md:w-1/2 flex flex-col  justify-center">
             <div className="w-full sm:p-4 px-4 mb-6">
               <h1 className="title-font font-medium text-xl mb-2 text-gray-900">
-                Moon hashtag pop-up try-hard offal truffaut
+                Sell Your Old Mobile Phone On NextPhone
               </h1>
               <div className="leading-relaxed">
-                Pour-over craft beer pug drinking vinegar live-edge gastropub,
-                keytar neutra sustainable fingerstache kickstarter.
+                Want to sell old phone online and get some quick cash? Then,
+                there is no better place than NextPhone; we assure you that.
+                Forget all those troubles of going to a shop, pleading for the
+                best price and then crossing your fingers for the safety of your
+                data. NextPhone is the new one-stop to sell old phone online;
+                it’s like a wish granted by god. Yes, you heard it right. With
+                NextPhone’s smooth user experience, you can sell old phones
+                online with just a few clicks. So, stay at your home, and sell
+                old mobile phones right in the comfort of your home at the best
+                possible price. No, that’s not a typo - it’s 100 per cent
+                guaranteed. Introducing NextPhone, India’s biggest re-commerce
+                website.
               </div>
             </div>
             <div className="flex">
@@ -27,15 +37,15 @@ const Map = () => {
               </div>
               <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
                 <h2 className="title-font font-medium text-3xl text-gray-900">
-                  35
+                  2.2K
                 </h2>
-                <p className="leading-relaxed">Downloads</p>
+                <p className="leading-relaxed">Phone</p>
               </div>
               <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
                 <h2 className="title-font font-medium text-3xl text-gray-900">
-                  4
+                  1500
                 </h2>
-                <p className="leading-relaxed">Products</p>
+                <p className="leading-relaxed">Sold</p>
               </div>
             </div>
           </div>

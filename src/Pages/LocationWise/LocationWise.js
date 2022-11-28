@@ -24,10 +24,10 @@ const LocationWise = () => {
         <div className="flex mt-8 justify-between mb-5">
           <div>
             <h2 className="text-2xl mt-5 text-left text-[#222222] font-semibold">
-              Resent advertizes
+              Posts From : {id}
             </h2>
             <p className="text-center text-gray-400 mb-8">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              All Advertisement from {id}
             </p>
           </div>
           <div className="flex relative  rounded-xl items-center">

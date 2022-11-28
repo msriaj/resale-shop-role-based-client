@@ -106,8 +106,8 @@ const MyOrders = () => {
                           <td className="px-2 py-4 whitespace-nowrap">
                             <div className="text-center  ">
                               {result?.productDetails[0]?.status === "sold" ? (
-                                <span className="bg-red-400 ml-2 text-white text-xs  p-1 ">
-                                  Sold
+                                <span className="bg-green-400 ml-2 text-white text-xs  p-1 ">
+                                  Paid
                                 </span>
                               ) : (
                                 <span className="bg-green-400 ml-2 text-white text-xs  p-1 ">

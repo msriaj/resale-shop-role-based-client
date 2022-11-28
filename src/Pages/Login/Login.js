@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
-import Lottie from "lottie-react";
 import React from "react";
 import { FaGoogle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -13,8 +12,6 @@ import { serverUrl } from "../../Context/AuthContext";
 import { useAuth } from "../../hooks/useAuth";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { Axios } from "../../services/axiosInstance";
-
-import loginAnimation from "./login.json";
 
 const Login = () => {
   const [_, setItem] = useLocalStorage();
@@ -69,11 +66,8 @@ const Login = () => {
   return (
     <Page title="Login">
       <div className="flex md:py-16 items-center bg-blue-50">
-        <div className="md:w-1/2 hidden md:block">
-          <Lottie animationData={loginAnimation}> </Lottie>
-        </div>
-        <div className="w-full md:w-1/2 px-8 py-5 md:py-12 md:px-24">
-          <div className="flex flex-col  p-6  rounded-md sm:p-10 text-gray-700 bg-white shadow-lg         ">
+        <div className="w-full md:w-1/2 mx-auto px-8 py-5 md:py-12 md:px-24">
+          <div className="flex flex-col  p-6 sm:p-10 text-gray-700 bg-white shadow-lg         ">
             <div className="mb-8 text-center">
               <h1 className="my-3 text-4xl font-bold">Sign in</h1>
               <p className="text-sm   ">Sign in to access your account</p>
@@ -92,7 +86,7 @@ const Login = () => {
                     name="email"
                     id="email"
                     placeholder="leroy@jenkins.com"
-                    className="w-full px-3 py-2 border bg-sky-100 text-gray-800 outline-0 rounded-md hover:bg-gray-50     "
+                    className="w-full px-3 py-2 border bg-[#efc7ac] text-gray-800 outline-0 rounded-md hover:bg-gray-50     "
                   />
                 </div>
                 <div>
@@ -113,7 +107,7 @@ const Login = () => {
                     name="password"
                     id="password"
                     placeholder="*****"
-                    className="w-full px-3 py-2 border bg-sky-100 text-gray-800 outline-0 rounded-md hover:bg-gray-50           "
+                    className="w-full px-3 py-2 border bg-sky-100 text-gray-800 outline-0  hover:bg-gray-50           "
                   />
                 </div>
               </div>
@@ -121,7 +115,7 @@ const Login = () => {
                 <div>
                   <button
                     type="submit"
-                    className="w-full px-8 py-3 font-semibold rounded-md bg-blue-600 text-white dark:bg-sky-400  "
+                    className="w-full px-8 py-3 font-semibold  bg-[#FF6801] text-white dark:bg-[#FF6801]  "
                   >
                     Sign in
                   </button>
@@ -130,7 +124,7 @@ const Login = () => {
                   Don't have an account yet?
                   <Link
                     to="/reg"
-                    className="hover:underline dark:text-sky-400 ml-2"
+                    className="hover:underline dark:text-[#FF6801] ml-2"
                   >
                     Sign up
                   </Link>
@@ -139,7 +133,7 @@ const Login = () => {
                 <button
                   onClick={googleSignHandler}
                   type="button"
-                  className="w-full flex items-center justify-center gap-2 px-8 py-3 font-bold rounded-md  bg-gray-50 md:w-4/6 mx-auto border text-green-600   "
+                  className="w-full flex items-center justify-center gap-2 px-8 py-3 font-bold    bg-gray-50 md:w-4/6 mx-auto border text-gray-600   "
                 >
                   <FaGoogle /> Google Sign in
                 </button>

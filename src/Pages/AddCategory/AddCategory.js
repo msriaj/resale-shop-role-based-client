@@ -53,6 +53,7 @@ const AddCategory = () => {
           .then((result) => {
             if (result.data.acknowledged) {
               refetch();
+              setImg("");
               notify("Category Added Successfully !!");
               form.reset();
             }
@@ -136,7 +137,7 @@ const AddCategory = () => {
             </label>
           </div>
 
-          <button className="block w-full p-3 text-center   bg-blue-500 rounded-md text-white   dark:bg-violet-400">
+          <button className="block w-full p-3 text-center   bg-[#FF6801] rounded-md text-white   ">
             Add Category
           </button>
         </form>

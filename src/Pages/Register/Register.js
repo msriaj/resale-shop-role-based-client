@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import Lottie from "lottie-react";
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Page } from "../../Components/Page";
@@ -8,8 +7,6 @@ import { notify } from "../../Components/Utility/notify";
 import { useAuth } from "../../hooks/useAuth";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { Axios } from "../../services/axiosInstance";
-
-import regnAnimation from "./Reg.json";
 
 const Register = () => {
   const [_, setItem] = useLocalStorage();
@@ -88,10 +85,7 @@ const Register = () => {
       <div>
         <div className="bg-blue-50">
           <div className="flex flex-col p-12 justify-center items-center lg:flex-row  lg:w-10/12 mx-auto lg:py-20 lg:gap-12">
-            <div className="lg:w-1/2 hidden lg:block">
-              <Lottie animationData={regnAnimation} />
-            </div>
-            <div className="w-full lg:w-1/2 max-w-md p-8 space-y-3 bg-white rounded-xl shadow-xl       ">
+            <div className="w-full mx-auto lg:w-1/2 max-w-md p-8 space-y-3 bg-white shadow-xl       ">
               <h1 className="text-2xl font-bold text-center">Sign Up </h1>
               <form
                 onSubmit={submitHandler}
@@ -106,7 +100,7 @@ const Register = () => {
                     name="name"
                     id="Name"
                     placeholder="Name"
-                    className="w-full px-4  py-3 rounded-md bg-gray-100            focus:dark:border-violet-400"
+                    className="w-full px-4  py-3 rounded-md bg-gray-100            focus:dark:border-[#FF6801]"
                     required
                   />
                 </div>
@@ -120,7 +114,7 @@ const Register = () => {
                     name="email"
                     id="email"
                     placeholder="Email"
-                    className="w-full px-4  py-3 rounded-md bg-gray-100            focus:dark:border-violet-400"
+                    className="w-full px-4  py-3 rounded-md bg-gray-100            focus:dark:border-[#FF6801]"
                     required
                   />
                 </div>
@@ -133,7 +127,7 @@ const Register = () => {
                     name="password"
                     id="password"
                     placeholder="Password"
-                    className="w-full px-4 py-3 rounded-md bg-gray-100            focus:dark:border-violet-400"
+                    className="w-full px-4 py-3 rounded-md bg-gray-100            focus:dark:border-[#FF6801]"
                     required
                   />
                 </div>
@@ -161,7 +155,7 @@ const Register = () => {
                     </label>
                   </div>
                 </div>
-                <button className="block w-full p-3 text-center   bg-blue-500 rounded-md text-white   dark:bg-violet-400">
+                <button className="block w-full p-3 text-center   bg-[#FF6801]   text-white   dark:bg-[#FF6801]">
                   Sign Up
                 </button>
               </form>

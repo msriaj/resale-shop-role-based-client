@@ -40,7 +40,7 @@ const Categories = () => {
         <div className="text-center pt-8">
           <Link
             to="/categories"
-            className="border hover:bg-gray-600 bg-white hover:text-white px-4 py-2 "
+            className="border hover:bg-[#FF6801] bg-white hover:text-white px-4 py-2 "
           >
             More Categories
           </Link>

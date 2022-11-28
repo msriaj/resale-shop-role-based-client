@@ -13,14 +13,20 @@ const Blog = () => {
           <div className="space-y-4 pt-5 font-semibold">
             <details className="w-full border rounded-lg">
               <summary className="px-4 py-6 focus:outline-none focus-visible:ring-violet-400">
-                Difference between SQL and NoSQL
+                What are the different ways to manage a state in a React
+                application?
               </summary>
               <p className="px-4 py-6 pt-0 ml-4 -mt-4   ">
-                SQL is the programming language used to interface with
-                relational databases. (Relational databases model data as
-                records in rows and tables with logical links between them).
-                NoSQL is a class of DBMs that are non-relational and generally
-                do not use SQL.
+                Once you attempt to manage state across multiple components,
+                things get a bit trickier. You will reach a point in your
+                application where patterns like “lifting state up” and passing
+                callbacks down to update your state from components lead to lots
+                and lots of props. What do you do if you want to update a
+                component’s state from basically anywhere in your app? You turn
+                it into global state. To manage it, however, you should opt for
+                a third-party solution. Many developers are inclined to use
+                built-in React features like the Context API to manage their
+                state.
               </p>
             </details>
             <details className="w-full border rounded-lg">

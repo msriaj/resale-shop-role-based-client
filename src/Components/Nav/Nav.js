@@ -14,12 +14,12 @@ const Nav = () => {
         <header className="py-4 bg-white  text-gray-900          ">
           <div className="md:flex justify-between items-center md:w-10/12 md:mx-auto hidden">
             <div>
-              <Link to="/" className="font-bold text-xl text-sky-500 mr-3">
+              <Link to="/" className="font-bold text-xl text-[#FF6801] mr-3">
                 <span className="uppercase">NextMobile</span>
               </Link>
 
               <Link
-                className="py-2 rounded-lg hover:text-sky-600 hover:bg-white px-2 font-semibold text-sm "
+                className="py-2 rounded-lg hover:text-[#FF6801] hover:bg-white px-2 font-semibold text-sm "
                 to="/"
               >
                 Home
@@ -28,7 +28,7 @@ const Nav = () => {
               {user?.uid && (
                 <>
                   <Link
-                    className="py-2 rounded-lg hover:text-sky-600 hover:bg-white px-2 font-semibold text-sm "
+                    className="py-2 rounded-lg hover:text-[#FF6801] hover:bg-white px-2 font-semibold text-sm "
                     to="/dashboard/overview"
                   >
                     Dashboard
@@ -36,13 +36,13 @@ const Nav = () => {
                 </>
               )}
               <Link
-                className="py-2 rounded-lg hover:text-sky-600 hover:bg-white px-2 font-semibold text-sm "
+                className="py-2 rounded-lg hover:text-[#FF6801] hover:bg-white px-2 font-semibold text-sm "
                 to="/categories"
               >
                 All Category
               </Link>
               <Link
-                className="py-2 rounded-lg hover:text-sky-600 hover:bg-white px-2  font-semibold text-sm"
+                className="py-2 rounded-lg hover:text-[#FF6801] hover:bg-white px-2  font-semibold text-sm"
                 to="/blog"
               >
                 Blogs
@@ -56,7 +56,7 @@ const Nav = () => {
                       logOut();
                       notify("Logout Successfully !!!", "error");
                     }}
-                    className="  cursor-pointer hover:text-sky-400 transition-colors duration-500  text-3xl  px-4 "
+                    className="  cursor-pointer hover:text-[#FF6801] transition-colors duration-500  text-3xl  px-4 "
                   >
                     <FaSignOutAlt />
                   </span>
@@ -65,13 +65,13 @@ const Nav = () => {
                 <>
                   {" "}
                   <Link
-                    className="py-2 rounded-md border   text-sm   px-4 "
+                    className="py-2  border  border-[#FF6801]  text-sm   px-4 "
                     to="/login"
                   >
                     Login
                   </Link>
                   <Link
-                    className="py-2 rounded-md bg-blue-600 border  border-blue-600  ml-2 text-sm text-white    px-4 "
+                    className="py-2 bg-[#FF6801] border  border-[#FF6801]  ml-2 text-sm text-white    px-4 "
                     to="/reg"
                   >
                     Sign Up
@@ -99,14 +99,14 @@ const Nav = () => {
             <>
               <div className="flex flex-col ml-5">
                 <Link
-                  className="py-2 rounded-lg hover:text-sky-600 hover:bg-white px-2 font-semibold text-sm "
+                  className="py-2 rounded-lg hover:text-[#FF6801] hover:bg-white px-2 font-semibold text-sm "
                   to="/"
                 >
                   Home
                 </Link>
 
                 <Link
-                  className="py-2 rounded-lg hover:text-sky-600 hover:bg-white px-2 font-semibold text-sm "
+                  className="py-2 rounded-lg hover:text-[#FF6801] hover:bg-white px-2 font-semibold text-sm "
                   to="/categories"
                 >
                   All Category
@@ -115,7 +115,7 @@ const Nav = () => {
                 {user?.uid && (
                   <>
                     <Link
-                      className="py-2 rounded-lg hover:text-sky-600 hover:bg-white px-2 font-semibold text-sm "
+                      className="py-2 rounded-lg hover:text-[#FF6801] hover:bg-white px-2 font-semibold text-sm "
                       to="/dashboard/overview"
                     >
                       Dashboard
@@ -123,7 +123,7 @@ const Nav = () => {
                   </>
                 )}
                 <Link
-                  className="py-2 rounded-lg hover:text-sky-600 hover:bg-white px-2  font-semibold text-sm"
+                  className="py-2 rounded-lg hover:text-[#FF6801] hover:bg-white px-2  font-semibold text-sm"
                   to="/blog"
                 >
                   Blogs
@@ -132,14 +132,6 @@ const Nav = () => {
               <div className="pt-3 ml-5">
                 {user?.uid ? (
                   <div className="flex items-center ">
-                    <Link to="/profile">
-                      <img
-                        src={user?.photoURL}
-                        alt=""
-                        className="inline-block w-10 rounded-full border-2 border-blue-400 mr-3"
-                      />
-                    </Link>
-
                     <span
                       onClick={() => {
                         logOut();
@@ -163,7 +155,7 @@ const Nav = () => {
                       Login
                     </Link>
                     <Link
-                      className="py-2 rounded-md bg-blue-600 border  border-blue-600  ml-2 text-sm text-white    px-4 "
+                      className="py-2 rounded-md bg-[#FF6801] border  border-[#FF6801]  ml-2 text-sm text-white    px-4 "
                       to="/reg"
                     >
                       Sign Up

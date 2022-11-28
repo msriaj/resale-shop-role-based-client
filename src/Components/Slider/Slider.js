@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./style.css";
@@ -17,12 +18,17 @@ const Slider = () => {
                 facility of selling <br /> the phone at a good price
               </p>
               <div className="mt-2">
-                <button className="px-4 py-2 hover:bg-yellow-700 bg-yellow-500">
-                  Register
-                </button>
-                <button className="px-4 py-2 hover:bg-yellow-700 ml-2 bg-sky-500">
-                  Login
-                </button>
+                <Link to="/reg">
+                  <button className="px-4 py-2 hover:bg-[#c05915] bg-[#FF6801]">
+                    Sell Now
+                  </button>
+                </Link>
+                <Link to="/categories">
+                  {" "}
+                  <button className="px-4 py-2 hover:bg-[#FF6801] ml-2 border border-white">
+                    See All Phone
+                  </button>
+                </Link>
               </div>
             </section>
           </div>
@@ -44,12 +50,17 @@ const Slider = () => {
                 facility of selling <br /> the phone at a good price
               </p>
               <div className="mt-2">
-                <button className="px-4 py-2 hover:bg-yellow-700 bg-yellow-500">
-                  Register
-                </button>
-                <button className="px-4 py-2 hover:bg-yellow-700 ml-2 bg-sky-500">
-                  Login
-                </button>
+                <Link to="/reg">
+                  <button className="px-4 py-2 hover:bg-[#b24a04] bg-[#FF6801]">
+                    Sell Now
+                  </button>
+                </Link>
+                <Link to="/categories">
+                  {" "}
+                  <button className="px-4 py-2 hover:bg-[#FF6801] ml-2 border border-white">
+                    See All Phone
+                  </button>
+                </Link>
               </div>
             </section>
           </div>
@@ -71,12 +82,17 @@ const Slider = () => {
                 facility of selling <br /> the phone at a good price
               </p>
               <div className="mt-2">
-                <button className="px-4 py-2 hover:bg-yellow-700 bg-yellow-500">
-                  Register
-                </button>
-                <button className="px-4 py-2 hover:bg-yellow-700 ml-2 bg-sky-500">
-                  Login
-                </button>
+                <Link to="/reg">
+                  <button className="px-4 py-2 hover:bg-[#98440c] bg-[#FF6801]">
+                    Sell Now
+                  </button>
+                </Link>
+                <Link to="/categories">
+                  {" "}
+                  <button className="px-4 py-2 hover:bg-[#FF6801] ml-2 border border-white">
+                    See All Phone
+                  </button>
+                </Link>
               </div>
             </section>
           </div>

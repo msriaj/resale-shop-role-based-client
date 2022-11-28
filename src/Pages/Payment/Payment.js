@@ -2,6 +2,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import React from "react";
 import { useLoaderData } from "react-router-dom";
+import { Page } from "../../Components/Page";
 import CheckoutForm from "./CheckoutForm ";
 
 const Payment = () => {
@@ -12,13 +13,15 @@ const Payment = () => {
   );
 
   return (
-    <div className="w-full  p-12">
-      <div className="bg-white">
-        <Elements stripe={stripePromise}>
-          <CheckoutForm data={data} />
-        </Elements>
+    <Page title={"Payment"}>
+      <div className="w-full  p-12">
+        <div className="bg-white">
+          <Elements stripe={stripePromise}>
+            <CheckoutForm data={data} />
+          </Elements>
+        </div>
       </div>
-    </div>
+    </Page>
   );
 };
 

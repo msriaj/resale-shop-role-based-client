@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { useParams } from "react-router-dom";
+import { Page } from "../../Components/Page";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import Loading from "../../Components/Utility/Loading";
 import NotFound from "../../Components/Utility/NotFound";
@@ -20,7 +21,7 @@ const PostList = () => {
   if (!data || !newData.length) return <NotFound />;
 
   return (
-    <div className="">
+    <Page title={"Post List"}>
       <div className="mx-5 md:w-10/12 md:mx-auto ">
         <div className="flex mt-8 justify-between mb-5">
           <div>
@@ -48,7 +49,7 @@ const PostList = () => {
           ))}
         </div>
       </div>
-    </div>
+    </Page>
   );
 };
 

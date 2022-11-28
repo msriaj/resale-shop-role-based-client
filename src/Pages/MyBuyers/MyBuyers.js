@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { Page } from "../../Components/Page";
 import Loading from "../../Components/Utility/Loading";
 import { Axios } from "../../services/axiosInstance";
 
@@ -20,7 +21,7 @@ const MyBuyers = () => {
   }
   console.log(data);
   return (
-    <div>
+    <Page title="My Buyers">
       <div>
         <section className="antialiased bg-gray-100 text-gray-600 h-screen ">
           <div className="w-full mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
@@ -90,7 +91,7 @@ const MyBuyers = () => {
           </div>
         </section>
       </div>
-    </div>
+    </Page>
   );
 };
 

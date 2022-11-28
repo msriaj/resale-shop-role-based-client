@@ -29,10 +29,6 @@ Access my site at [Live Link ](https://mobilelistbd.web.app/).
 - buyers can see my orders, wishlist
 - buyers can payment from stripe
 
-## Screenshots
-
-![Writing](https://i.ibb.co/9ZD7LWF/screencapture-service-review-ms-web-app-2022-11-10-21-57-30.jpg)
-
 ## Technologies
 
 I used `React`, `Nodejs`, `TailwindCss` `ExpressJs` `Moment` `Stripe`

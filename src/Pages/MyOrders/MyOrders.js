@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Link } from "react-router-dom";
+import { Page } from "../../Components/Page";
 import Loading from "../../Components/Utility/Loading";
 import { Axios } from "../../services/axiosInstance";
 
@@ -23,7 +24,7 @@ const MyOrders = () => {
 
   console.log(data);
   return (
-    <div>
+    <Page title="My Orders">
       <div className="  md:mx-0">
         <div className="mx-auto ">
           <div className="flex flex-col justify-center ">
@@ -139,7 +140,7 @@ const MyOrders = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Page>
   );
 };
 

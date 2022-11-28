@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FaCheckCircle, FaTrashAlt } from "react-icons/fa";
+import { Page } from "../../Components/Page";
 import Loading from "../../Components/Utility/Loading";
 import { notify } from "../../Components/Utility/notify";
 import { Axios } from "../../services/axiosInstance";
@@ -36,7 +37,7 @@ const AllSeller = () => {
     );
   }
   return (
-    <div>
+    <Page title="All Seller">
       <section className="antialiased bg-gray-100 text-gray-600 h-screen ">
         <div className="w-full mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
           <header className="px-5 py-4 border-b border-gray-100">
@@ -127,7 +128,7 @@ const AllSeller = () => {
           </div>
         </div>
       </section>
-    </div>
+    </Page>
   );
 };
 

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { Page } from "../../Components/Page";
 import Loading from "../../Components/Utility/Loading";
 import { notify } from "../../Components/Utility/notify";
 import { Axios } from "../../services/axiosInstance";
@@ -37,7 +38,7 @@ const AllProduct = () => {
   }
 
   return (
-    <div>
+    <Page title="All Products">
       <div className="  md:mx-0">
         <div className="mx-auto ">
           <div className="flex flex-col justify-center ">
@@ -180,7 +181,7 @@ const AllProduct = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Page>
   );
 };
 

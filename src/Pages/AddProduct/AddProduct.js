@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Input from "../../Components/Input/Input";
+import { Page } from "../../Components/Page";
 import Loading from "../../Components/Utility/Loading";
 import { notify } from "../../Components/Utility/notify";
 import { serverUrl } from "../../Context/AuthContext";
@@ -96,7 +97,7 @@ const AddProduct = () => {
   }
 
   return (
-    <div>
+    <Page title="Add Products">
       <div className="mt-5 mb-12 md:col-span-2 md:mt-0">
         <form onSubmit={submitHandler}>
           <div className="shadow sm:overflow-hidden sm:rounded-md">
@@ -276,7 +277,7 @@ const AddProduct = () => {
           </div>
         </form>
       </div>
-    </div>
+    </Page>
   );
 };
 

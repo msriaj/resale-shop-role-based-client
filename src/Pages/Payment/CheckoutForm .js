@@ -1,5 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { Lottie } from "lottie-react";
+import Lottie from "lottie-react";
 import React, { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -80,44 +80,50 @@ const CheckoutForm = ({ data }) => {
 
   if (processing) {
     return (
-      <div className="p-12 bg-white">
-        <Lottie animation={loaderImg}></Lottie>
-        <h1 className="text-2xl text-green-600">
-          Your Payment On Processing.....{" "}
-        </h1>
+      <div className="p-12 bg-white flex justify-center items-center">
+        <div>
+          <div className="w-98">
+            <Lottie animationData={loaderImg}></Lottie>
+          </div>
+          <h1 className="text-2xl text-green-600">
+            Your Payment On Processing.....{" "}
+          </h1>
+        </div>
       </div>
     );
   }
 
   return (
     <div>
-      <form className="bg-white p-3" onSubmit={handleSubmit}>
-        <div className="p-3">
-          <CardElement
-            options={{
-              style: {
-                base: {
-                  fontSize: "16px",
-                  color: "#424770",
-                  "::placeholder": {
-                    color: "#aab7c4",
+      {!success && (
+        <form className="bg-white p-3" onSubmit={handleSubmit}>
+          <div className="p-3">
+            <CardElement
+              options={{
+                style: {
+                  base: {
+                    fontSize: "16px",
+                    color: "#424770",
+                    "::placeholder": {
+                      color: "#aab7c4",
+                    },
+                  },
+                  invalid: {
+                    color: "#9e2146",
                   },
                 },
-                invalid: {
-                  color: "#9e2146",
-                },
-              },
-            }}
-          />
-        </div>
-        <button
-          className="bg-sky-500 py-1 text-sm mt-5 m-2 text-white px-2 rounded-md disabled:bg-gray-500"
-          type="submit"
-          disabled={!stripe || !clientSecret}
-        >
-          Pay
-        </button>
-      </form>
+              }}
+            />
+          </div>
+          <button
+            className="bg-sky-500 py-1 text-sm mt-5 m-2 text-white px-2 rounded-md disabled:bg-gray-500"
+            type="submit"
+            disabled={!stripe || !clientSecret}
+          >
+            Pay
+          </button>
+        </form>
+      )}
 
       {success && (
         <div className="p-12 bg-white">

@@ -25,10 +25,10 @@ const PostList = () => {
         <div className="flex mt-8 justify-between mb-5">
           <div>
             <h2 className="text-2xl mt-5 text-left text-[#222222] font-semibold">
-              Resent advertizes
+              Latest Advertizes
             </h2>
             <p className="text-center text-gray-400 mb-8">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Select your device & we’ll help you unlock the best selling price
             </p>
           </div>
           <div className="flex relative  rounded-xl items-center">

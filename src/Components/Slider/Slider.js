@@ -8,11 +8,11 @@ const Slider = () => {
         <SwiperSlide>
           <div className="absolute bg-gray-900 opacity-90 w-full h-full "></div>
           <div className="absolute w-full h-full  flex flex-col justify-center ">
-            <section className="text-white p-5 md:p-20">
-              <h1 className=" text-2xl md:text-3xl font-extrabold mb-2">
+            <section className="text-white py-20 p-5 md:p-20">
+              <h1 className=" text-xl md:text-3xl font-extrabold mb-2">
                 Before Sold Out Buy <br /> Your Next Phone.
               </h1>
-              <p className="md:text-xl">
+              <p className="md:text-xl text-xs">
                 Buy and sell with confidence on our website. <br /> with the
                 facility of selling <br /> the phone at a good price
               </p>
@@ -35,11 +35,11 @@ const Slider = () => {
         <SwiperSlide>
           <div className="absolute bg-gray-900 opacity-90 w-full h-full "></div>
           <div className="absolute w-full h-full  flex flex-col justify-center ">
-            <section className="text-white p-5 md:p-20">
-              <h1 className=" text-2xl md:text-3xl font-extrabold mb-2">
+            <section className="text-white py-20 p-5 md:p-20">
+              <h1 className=" text-xl md:text-3xl font-extrabold mb-2">
                 Sell Your Device <br /> At Best Offer
               </h1>
-              <p className="md:text-xl">
+              <p className="md:text-xl text-xs">
                 Buy and sell with confidence on our website. <br /> with the
                 facility of selling <br /> the phone at a good price
               </p>
@@ -62,11 +62,11 @@ const Slider = () => {
         <SwiperSlide>
           <div className="absolute bg-gray-900 opacity-90 w-full h-full "></div>
           <div className="absolute w-full h-full  flex flex-col justify-center ">
-            <section className="text-white p-5 md:p-20">
-              <h1 className=" text-2xl md:text-3xl font-extrabold mb-2">
+            <section className="text-white py-20 p-5 md:p-20">
+              <h1 className=" text-xl md:text-3xl font-extrabold mb-2">
                 Before Sold Out Buy <br /> Your Next Phone.
               </h1>
-              <p className="md:text-xl">
+              <p className="md:text-xl text-xs">
                 Buy and sell with confidence on our website. <br /> with the
                 facility of selling <br /> the phone at a good price
               </p>

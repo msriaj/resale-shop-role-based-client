@@ -39,7 +39,7 @@ const AllProduct = () => {
 
   return (
     <Page title="All Products">
-      <div className="  md:mx-0">
+      <div className=" md:mx-0">
         <div className="mx-auto ">
           <div className="flex flex-col justify-center ">
             <div className="w-full bg-white my-12 mx-auto rounded-sm border  ">
@@ -90,7 +90,9 @@ const AllProduct = () => {
                                 alt={result.productName}
                               />
                               <div className="font-medium text-gray-800">
-                                <Link to="/">{result.productName}</Link>
+                                <Link to={`/advertisement/${result._id}`}>
+                                  {result.productName}
+                                </Link>
                               </div>
                             </div>
                           </td>

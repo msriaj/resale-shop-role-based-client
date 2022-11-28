@@ -7,7 +7,7 @@ import CheckoutForm from "./CheckoutForm ";
 
 const Payment = () => {
   const data = useLoaderData();
-  console.log(data);
+
   const stripePromise = loadStripe(
     "pk_test_51M8qENL39Ynj9W9L8ILPCX8M69CDKR3nw6IXJboN54f9vvbsj698GRt2Yrf07dRhNBDPgd623vixj8iwNVLbHQih00AXkzzyZD"
   );

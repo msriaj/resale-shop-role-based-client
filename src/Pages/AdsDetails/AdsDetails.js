@@ -1,35 +1,29 @@
-import React from "react";
-import {
-  FaCalendar,
-  FaCheckCircle,
-  FaClock,
-  FaHeart,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import React, { useState } from "react";
+import { FaHeart } from "react-icons/fa";
+import { Link, useParams } from "react-router-dom";
+import ModalBook from "../../Components/ModalBook/ModalBook";
+import { Page } from "../../Components/Page";
+import Loading from "../../Components/Utility/Loading";
+import { notify } from "../../Components/Utility/notify";
 import { useAuth } from "../../hooks/useAuth";
 import { Axios } from "../../services/axiosInstance";
-import { notify } from "../Utility/notify";
-import ModalBook from "./../../Components/ModalBook/ModalBook";
 
-const ProductCard = ({ product }) => {
-  const { user, userID, role } = useAuth();
+const AdsDetails = () => {
+  const { id } = useParams();
+  const { userID, role, user } = useAuth();
+  const [showModal, setShowModal] = useState(false);
 
-  const {
-    _id,
-    productName,
-    originalPrice,
-    resalePrice,
-    createdAt,
-    useDuration,
-    location,
-    sellerInfo,
-    advertize,
-    productImage,
-  } = product;
-  const { user: sellerDetails, verify, _id: sellerId } = sellerInfo[0];
-  const [showModal, setShowModal] = React.useState(false);
+  const { data, isLoading } = useQuery(["myProducts"], () =>
+    Axios.get(`/api/ads/${id}`).then((result) => result.data)
+  );
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  const { _id, productName, resalePrice, location, sellerInfo } = data;
+  const { _id: sellerId } = sellerInfo[0];
   const wishHandler = () => {
     if (role === "buyers") {
       Axios.post(`/api/add-wish`, {
@@ -95,95 +89,82 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <>
-      <div className=" border p-5 bg-white  text-sm overflow-hidden hover:border  hover:shadow-xl">
-        <div className="relative">
-          <div className="bg-gray-50 p-5  overflow-hidden">
-            <img
-              src={productImage}
-              alt=""
-              className="mx-auto h-52 hover:scale-110 transition-all duration-500"
-            />
+    <Page title={productName}>
+      <div className="bg-white md:w-10/12 mx-auto ">
+        <div className="grid grid-cols-2   m-5 border items-center">
+          <div>
+            <img src={data.productImage} className="" alt="" />
           </div>
-          {advertize && (
-            <button className="absolute top-4 left-4 bg-sky-500 text-white text-xs p-1 rounded-sm">
-              Advertize
-            </button>
-          )}
+          <div className="p-5 text-gray-500">
+            <p className="text-xl md:text-3xl mb-5 text-[#FF6801]">
+              <b>{data.productName} </b>
+            </p>
+            <p className="my-2">
+              Condition:{" "}
+              <b className="bg-green-900 p-1 text-sm rounded text-white">
+                {data.condition}{" "}
+              </b>
+            </p>
+            <p className="">
+              Price:{" "}
+              <b className="text-[#FF6801} text-lg md:text-3xl">
+                {data.resalePrice}TK{" "}
+              </b>
+              <span className="line-through text-xm md:text-xl ">
+                {" "}
+                {data.originalPrice} TK
+              </span>{" "}
+            </p>
+            <div className="text-xm">
+              <p>
+                Location: <b>{data.location} </b>
+              </p>
+              <p>
+                Contact Number: <b>{data.sellerPhone} </b>
+              </p>
+            </div>
+            <div>
+              <div className="flex justify gap-5 items-center mt-4">
+                <p
+                  onClick={() => {
+                    wishHandler();
+                  }}
+                  className="flex gap-1 border p-2     hover:bg-[#FF6801] hover:text-white items-center"
+                >
+                  <FaHeart className="text-xl" />{" "}
+                  <span className=" font-medium text-sm uppercase cursor-pointer">
+                    Add to wishlist
+                  </span>
+                </p>
+                <button
+                  onClick={() => {
+                    if (role !== "buyers") {
+                      notify("Your Are Not Buyers", "info");
+                      return;
+                    }
+
+                    setShowModal(true);
+                  }}
+                  className="bg-[#FF6801] border hover:bg-gray-700 text-white p-2 "
+                >
+                  Book Now
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="mt-3 text-gray-400">
-          <h3 className="font-semibold text-xl text-gray-600 hover:text-[#FF6801]">
-            <Link to={`/advertisement/${_id}`}>{productName}</Link>
-          </h3>
-          <div className="flex justify-between items-center">
-            <p className="text-lg font-semibold text-red-400 mt-1">
-              <span title="Resale Price">TK {resalePrice}</span>
-              <span
-                title="Ordinal Price"
-                className="text-sm text-gray-400 line-through ml-1"
-              >
-                TK {originalPrice}
-              </span>
-            </p>
-            <p>
-              <span className="flex items-center gap-1">
-                <FaCalendar className="text-gray-300" />{" "}
-                {createdAt.slice(0, 10)}
-              </span>
-            </p>
+        <div className="bg-gray-100 text-gray-600 m-5 p-5">
+          <div>
+            <b>CreatedAt:</b> {data.createdAt}
+          </div>
+          <div>
+            <b>Used:</b> {data.useDuration} Years
           </div>
 
-          <p className="flex justify-between mt-1">
-            <span className="flex items-center gap-1">
-              <FaMapMarkerAlt className="text-gray-300" />
-              {location}
-            </span>
-
-            <span className="flex items-center gap-1">
-              <FaClock className="text-gray-300" />
-              {useDuration} Years Used
-            </span>
+          <p>
+            {" "}
+            <b>Description:</b> {data.description}
           </p>
-          <p className="flex justify-between mt-1">
-            <span className="flex items-center gap-1 ">
-              by
-              <span className=" flex font-medium gap-1 items-center">
-                {sellerDetails}
-                {verify && (
-                  <FaCheckCircle
-                    className="text-sky-500"
-                    title="Seller Verified"
-                  />
-                )}
-              </span>
-            </span>
-          </p>
-          <div className="flex justify-between items-center mt-4">
-            <p
-              onClick={() => {
-                wishHandler();
-              }}
-              className="flex gap-1 border p-2     hover:bg-[#FF6801] hover:text-white items-center"
-            >
-              <FaHeart className="text-xl" />{" "}
-              <span className=" font-medium text-sm uppercase cursor-pointer">
-                Add to wishlist
-              </span>
-            </p>
-            <button
-              onClick={() => {
-                if (role !== "buyers") {
-                  notify("Your Are Not Buyers", "info");
-                  return;
-                }
-
-                setShowModal(true);
-              }}
-              className="bg-[#FF6801] hover:bg-gray-700 text-white p-2 "
-            >
-              Book Now
-            </button>
-          </div>
         </div>
       </div>
       {showModal && (
@@ -293,8 +274,8 @@ const ProductCard = ({ product }) => {
           )}
         </ModalBook>
       )}
-    </>
+    </Page>
   );
 };
 
-export default ProductCard;
+export default AdsDetails;

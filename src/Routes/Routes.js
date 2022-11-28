@@ -3,6 +3,7 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import Main from "../Layout/Main";
 import AddCategory from "../Pages/AddCategory/AddCategory";
 import AddProduct from "../Pages/AddProduct/AddProduct";
+import AdsDetails from "../Pages/AdsDetails/AdsDetails";
 import AllBuyers from "../Pages/AllBuyers/AllBuyers";
 import AllProduct from "../Pages/AllProduct/AllProduct";
 import AllSeller from "../Pages/AllSeller/AllSeller";
@@ -67,8 +68,12 @@ export const routes = createBrowserRouter([
         ),
       },
       {
-        path: "/product-details/:id",
-        element: <p>product detilas</p>,
+        path: "/advertisement/:id",
+        element: (
+          <PrivateRoute>
+            <AdsDetails />
+          </PrivateRoute>
+        ),
       },
     ],
     errorElement: <Error />,

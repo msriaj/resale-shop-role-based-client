@@ -89,7 +89,9 @@ const MyProducts = () => {
                                 alt={result.productName}
                               />
                               <div className="font-medium text-gray-800">
-                                <Link to="/">{result.productName}</Link>
+                                <Link to={`/advertisement/${result._id}`}>
+                                  {result.productName}
+                                </Link>
                               </div>
                             </div>
                           </td>

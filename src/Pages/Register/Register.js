@@ -131,7 +131,12 @@ const Register = () => {
                     required
                   />
                 </div>
-                <input type="file" onChange={handleFileSelect} />
+                <div>
+                  <label htmlFor="photo" className="block   ">
+                    photo
+                  </label>
+                  <input type="file" onChange={handleFileSelect} />
+                </div>
                 <div className="space-y-1 text-sm">
                   <label htmlFor="password" className="block   ">
                     Are You Seller ?

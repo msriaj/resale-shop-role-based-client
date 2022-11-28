@@ -20,7 +20,7 @@ const Advertize = () => {
       <div className="mx-5 md:w-10/12 md:mx-auto ">
         <div className="flex flex-col md:flex-row mt-8 justify-between mb-5">
           <div>
-            <h2 className="text-2xl mt-5 text-left text-[#222222] font-semibold">
+            <h2 className="text-2xl mt-5 text-center md:text-left text-[#222222] font-semibold">
               Recent Advertizes
             </h2>
             <p className="text-center text-gray-400 mb-8">

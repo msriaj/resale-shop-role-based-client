@@ -31,29 +31,30 @@ const ProductCard = ({ product }) => {
   const [showModal, setShowModal] = React.useState(false);
 
   const wishHandler = () => {
-    Axios.post(`/api/add-wish`, {
-      wishedProduct: _id,
-      sellerId,
-    })
-      .then((result) => {
-        if (result.data.acknowledged) {
-          notify("Product Added To WishList!!");
-          setShowModal(false);
-        }
+    if (role === "buyers") {
+      Axios.post(`/api/add-wish`, {
+        wishedProduct: _id,
+        sellerId,
       })
-      .catch((err) => {
-        if (err.response.data) {
-          notify(err.response.data, "error");
-        }
-      });
+        .then((result) => {
+          if (result.data.acknowledged) {
+            notify("Product Added To WishList!!");
+            setShowModal(false);
+          }
+        })
+        .catch((err) => {
+          if (err.response.data) {
+            notify(err.response.data, "error");
+          }
+        });
+    }
+
+    notify("Your Are Not Buyers", "info");
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (!role === "buyers") {
-      notify("Your Are Not Buyers");
-      return;
-    }
+
     const form = e.target;
     const productName = form.productName.value;
     const resalePrice = form.resalePrice.value;
@@ -171,6 +172,11 @@ const ProductCard = ({ product }) => {
             </p>
             <button
               onClick={() => {
+                if (role !== "buyers") {
+                  notify("Your Are Not Buyers", "info");
+                  return;
+                }
+
                 setShowModal(true);
               }}
               className="bg-[#FF6801] hover:bg-gray-700 text-white p-2 "

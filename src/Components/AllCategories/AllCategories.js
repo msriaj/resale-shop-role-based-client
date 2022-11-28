@@ -17,7 +17,7 @@ const AllCategories = () => {
     return <NotFound />;
   }
   return (
-    <div className="md:w-10/12 mx-auto pt-12">
+    <div className="md:w-10/12 mx-auto py-12">
       <div>
         <h2 className="text-2xl mt-5 text-center text-[#222222] font-semibold">
           All Categories

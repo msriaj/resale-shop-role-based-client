@@ -51,11 +51,15 @@ const Nav = () => {
             <div className="pt-3">
               {user?.uid ? (
                 <div className="flex items-center ">
+                  <div>
+                    Welcome, <b>{user?.displayName}</b>
+                  </div>
                   <span
                     onClick={() => {
                       logOut();
                       notify("Logout Successfully !!!", "error");
                     }}
+                    title="Logout"
                     className="  cursor-pointer hover:text-[#FF6801] transition-colors duration-500  text-3xl  px-4 "
                   >
                     <FaSignOutAlt />
@@ -83,8 +87,8 @@ const Nav = () => {
 
           <div className="flex justify-between md:hidden px-6">
             <div>
-              <Link to="/" className="font-bold text-xl text-sky-500 mr-3">
-                <span className="uppercase">Dantina</span>
+              <Link to="/" className="font-bold text-xl text-[#FF6801]  mr-3">
+                <span className="uppercase">NextPhone</span>
               </Link>
             </div>
             <div>
@@ -137,6 +141,7 @@ const Nav = () => {
                         logOut();
                         notify("Logout Successfully !!!", "error");
                       }}
+                      title="Logout"
                       className="  cursor-pointer hover:text-sky-400 transition-colors duration-500  text-3xl  px-4 "
                     >
                       <p data-tip="Logout">

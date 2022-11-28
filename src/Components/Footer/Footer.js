@@ -9,7 +9,7 @@ const Footer = () => {
           <div className="sm:col-span-2">
             <Link to="/" className="inline-flex items-center">
               <span className="text-xl font-bold tracking-wide text-gray-800 uppercase">
-                Company
+                NextPhone
               </span>
             </Link>
             <div className="mt-6 lg:max-w-sm">

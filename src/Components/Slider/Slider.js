@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
+import img2 from "../../assets/images/2.png";
+import img3 from "../../assets/images/3.png";
+import img4 from "../../assets/images/4.png";
 import "./style.css";
+
 const Slider = () => {
   return (
     <div>
@@ -33,10 +37,7 @@ const Slider = () => {
             </section>
           </div>
 
-          <img
-            src="https://cdn.discordapp.com/attachments/848180753178951731/1045424749653794906/2.png"
-            alt="00"
-          />
+          <img src={img2} className="w-full" alt="00" />
         </SwiperSlide>
         <SwiperSlide>
           <div className="absolute bg-gray-900 opacity-90 w-full h-full "></div>
@@ -65,10 +66,7 @@ const Slider = () => {
             </section>
           </div>
 
-          <img
-            src="https://cdn.discordapp.com/attachments/848180753178951731/1045424749968363560/3.png"
-            alt="00"
-          />
+          <img src={img3} className="w-full" alt="00" />
         </SwiperSlide>
         <SwiperSlide>
           <div className="absolute bg-gray-900 opacity-90 w-full h-full "></div>
@@ -97,10 +95,7 @@ const Slider = () => {
             </section>
           </div>
 
-          <img
-            src="https://cdn.discordapp.com/attachments/848180753178951731/1045424750274560040/4.png"
-            alt="00"
-          />
+          <img src={img4} className="w-full" alt="00" />
         </SwiperSlide>
       </Swiper>
     </div>

@@ -145,6 +145,7 @@ const AddProduct = () => {
                           <select
                             name="category"
                             className="  border p-2  rounded"
+                            required
                           >
                             <option className="w-full ">Select Category</option>
                             {data.map((cat) => (
@@ -174,6 +175,7 @@ const AddProduct = () => {
                           <select
                             name="location"
                             className="  border p-2  rounded"
+                            required
                           >
                             <option className="w-full ">
                               Select Your Location
@@ -210,7 +212,13 @@ const AddProduct = () => {
                 </div>
                 <div className="mt-5">
                   <p>Please select your Product Quality:</p>
-                  <input type="radio" id="Good" name="condition" value="Good" />
+                  <input
+                    type="radio"
+                    id="Good"
+                    name="condition"
+                    value="Good"
+                    defaultChecked
+                  />
                   <label className="ml-2" htmlFor="Good">
                     Good
                   </label>

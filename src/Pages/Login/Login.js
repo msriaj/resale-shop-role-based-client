@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 import { Page } from "../../Components/Page";
+import Loading from "../../Components/Utility/Loading";
 import { notify } from "../../Components/Utility/notify";
 
 import { serverUrl } from "../../Context/AuthContext";
@@ -14,15 +15,17 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { Axios } from "../../services/axiosInstance";
 
 const Login = () => {
+  const [spinning, setSpinning] = useState(false);
   const [_, setItem] = useLocalStorage();
   const navigate = useNavigate();
   const location = useLocation();
-  const nextUrl = location?.state?.from.pathname || "/";
+  const nextUrl = location?.state?.from.pathname || "/dashboard/overview";
 
-  const { signInEmail, googleSignIn } = useAuth();
+  const { setRole, signInEmail, googleSignIn } = useAuth();
 
   const submitHandler = (e) => {
     e.preventDefault();
+    setSpinning(true);
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
@@ -34,11 +37,14 @@ const Login = () => {
           .post(`${serverUrl}/api/get-token`, { email: user.user.email })
           .then((result) => {
             setItem("token", result.data.token);
-            navigate(nextUrl);
+            setRole(result.data.role);
             notify("Login Successfully !!");
+            setSpinning(false);
+            navigate(nextUrl);
           });
       })
       .catch((err) => {
+        setSpinning(false);
         notify(err.code, "error");
       });
   };
@@ -56,12 +62,17 @@ const Login = () => {
         console.log(dbInfo);
         Axios.post("/api/google-user", dbInfo).then((result) => {
           setItem("token", result.data.token);
+          setRole(result.data.role);
           navigate(nextUrl);
           notify("Login Successfully !!");
         });
       })
       .catch((err) => notify(err.code, "error"));
   };
+
+  if (spinning) {
+    return <Loading />;
+  }
 
   return (
     <Page title="Login">
@@ -86,7 +97,7 @@ const Login = () => {
                     name="email"
                     id="email"
                     placeholder="leroy@jenkins.com"
-                    className="w-full px-3 py-2 border bg-[#efc7ac] text-gray-800 outline-0 rounded-md hover:bg-gray-50     "
+                    className="w-full px-3 py-2 border bg-sky-100 text-gray-800 outline-0 rounded-md hover:bg-gray-50     "
                   />
                 </div>
                 <div>

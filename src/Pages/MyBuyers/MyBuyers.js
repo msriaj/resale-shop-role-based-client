@@ -2,10 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Page } from "../../Components/Page";
 import Loading from "../../Components/Utility/Loading";
+import { useAuth } from "../../hooks/useAuth";
 import { Axios } from "../../services/axiosInstance";
 
 const MyBuyers = () => {
-  const { data, isLoading } = useQuery(["myBuyers"], () =>
+  const { userID } = useAuth();
+  const { data, isLoading } = useQuery(["myBuyers", userID], () =>
     Axios.get("/api/my-buyers").then((result) => result.data)
   );
   if (isLoading) {

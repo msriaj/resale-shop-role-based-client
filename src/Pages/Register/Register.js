@@ -10,10 +10,10 @@ import { Axios } from "../../services/axiosInstance";
 
 const Register = () => {
   const [_, setItem] = useLocalStorage();
-  const { setUser, createUser, updateProfileInfo } = useAuth();
+  const { setRole, setUser, createUser, updateProfileInfo } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const nextUrl = location?.state?.from.pathname || "/";
+  const nextUrl = location?.state?.from.pathname || "/dashboard/overview";
   const [selectedFile, setSelectedFile] = useState(null);
   const [rLoading, setRLoading] = useState(false);
 
@@ -58,6 +58,7 @@ const Register = () => {
                 ...newUser.user,
                 displayName: displayName,
               });
+              setRole(result.data.role);
               setRLoading(false);
               navigate(nextUrl);
               notify("Register Successfully !!");
@@ -131,11 +132,15 @@ const Register = () => {
                     required
                   />
                 </div>
-                <div>
+                <div className="space-y-1 text-sm">
                   <label htmlFor="photo" className="block   ">
-                    photo
+                    Photo
                   </label>
-                  <input type="file" onChange={handleFileSelect} />
+                  <input
+                    className="w-full px-4 py-3 rounded-md bg-gray-100            focus:dark:border-[#FF6801]"
+                    type="file"
+                    onChange={handleFileSelect}
+                  />
                 </div>
                 <div className="space-y-1 text-sm">
                   <label htmlFor="password" className="block   ">

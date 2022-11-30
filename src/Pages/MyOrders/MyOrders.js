@@ -3,10 +3,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Page } from "../../Components/Page";
 import Loading from "../../Components/Utility/Loading";
+import { useAuth } from "../../hooks/useAuth";
 import { Axios } from "../../services/axiosInstance";
 
 const MyOrders = () => {
-  const { data, isLoading } = useQuery(["my-orders"], () =>
+  const { userID } = useAuth();
+  const { data, isLoading } = useQuery(["my-orders", userID], () =>
     Axios.get(`/api/my-orders`).then((result) => result.data)
   );
 

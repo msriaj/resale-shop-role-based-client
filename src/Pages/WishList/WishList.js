@@ -2,12 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Link } from "react-router-dom";
 import Loading from "../../Components/Utility/Loading";
+import { useAuth } from "../../hooks/useAuth";
 import { Axios } from "../../services/axiosInstance";
 
 const WishList = () => {
-  const { data, isLoading } = useQuery(["wish-orders"], () =>
-    Axios.get(`/api/my-wish-list`).then((result) => result.data)
-  );
+  const { userID } = useAuth();
+  console.log(userID);
+  const { data, isLoading } = useQuery({
+    queryKey: ["wish-orders", userID],
+    queryFn: () => Axios.get(`/api/my-wish-list`).then((result) => result.data),
+  });
 
   if (isLoading) {
     return <Loading />;

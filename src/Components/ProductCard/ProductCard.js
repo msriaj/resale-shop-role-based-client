@@ -40,16 +40,18 @@ const ProductCard = ({ product }) => {
           if (result.data.acknowledged) {
             notify("Product Added To WishList!!");
             setShowModal(false);
+            return;
           }
         })
         .catch((err) => {
           if (err.response.data) {
             notify(err.response.data, "error");
+            return;
           }
         });
+    } else {
+      notify("Your Are Not Buyers", "info");
     }
-
-    notify("Your Are Not Buyers", "info");
   };
 
   const submitHandler = async (e) => {

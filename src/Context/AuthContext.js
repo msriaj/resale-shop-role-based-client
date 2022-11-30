@@ -111,6 +111,7 @@ const UserContext = ({ children }) => {
     role,
     userID,
     isAuth,
+    setRole,
   };
 
   return (

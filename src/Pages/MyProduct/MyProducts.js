@@ -7,8 +7,8 @@ import { useAuth } from "../../hooks/useAuth";
 import { Axios } from "../../services/axiosInstance";
 
 const MyProducts = () => {
-  const { user } = useAuth();
-  const { data, isLoading, refetch } = useQuery(["myProducts"], () =>
+  const { user, userID } = useAuth();
+  const { data, isLoading, refetch } = useQuery(["myProducts", userID], () =>
     Axios.get(`/api/products?email=${user?.email}`).then(
       (result) => result.data
     )
@@ -17,13 +17,13 @@ const MyProducts = () => {
   const deleteProduct = (id) => {
     Axios.get(`/api/delete-product/${id}`).then((result) => {
       refetch();
-      notify("Delete Success!!!", "info");
+      notify("Delete Success!!!", "error");
     });
   };
   const advertizeProduct = (id) => {
     Axios.get(`/api/advertize-product/${id}`).then((result) => {
       refetch();
-      notify("Delete Success!!!", "info");
+      notify("advertize Success!!!", "info");
     });
   };
 

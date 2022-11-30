@@ -14,7 +14,12 @@ const PrivateRoute = ({ permission, children }) => {
 
   if (permission) {
     if (!permission?.includes(role)) {
-      return <p>You Don't Have Access to this Page</p>;
+      return (
+        <>
+          <p>You Don't Have Access to this Page</p>
+          <p>If You Have Please Try To Refresh This page</p>
+        </>
+      );
     }
   }
 

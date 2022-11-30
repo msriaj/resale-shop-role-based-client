@@ -91,7 +91,7 @@ const AdsDetails = () => {
   return (
     <Page title={productName}>
       <div className="bg-white md:w-10/12 mx-auto ">
-        <div className="grid grid-cols-2   m-5 border items-center">
+        <div className="grid  md:grid-cols-2   m-5 border items-center">
           <div>
             <img src={data.productImage} className="" alt="" />
           </div>

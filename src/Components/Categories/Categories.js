@@ -11,7 +11,7 @@ const Categories = () => {
   if (isLoading) {
     return <Loading />;
   }
-  const newData = data?.slice(0, 5);
+  const newData = data?.slice(0, 6);
   return (
     <div className="bg-[#E6F2FE]">
       <div className="md:w-10/12 mx-auto py-12">
@@ -21,7 +21,7 @@ const Categories = () => {
         <p className="text-center text-gray-400 mb-8">
           Boost Your Search With Trending Categories
         </p>
-        <div className="grid mx-5 gap-5 grid-cols-1  md:grid-cols-5">
+        <div className="grid mx-5 gap-5 grid-cols-2  md:grid-cols-3">
           {newData.map((cat) => (
             <div
               key={cat._id}
